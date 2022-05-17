@@ -7,7 +7,7 @@
 ## 実行手順
 1. 任意のディレクトリにgit cloneする
 ```
-$ git clone 
+$ git clone git@github.com:erikoenuma/freelance_dakoku.git
 ```
 2. ディレクトリに移動
 ```
