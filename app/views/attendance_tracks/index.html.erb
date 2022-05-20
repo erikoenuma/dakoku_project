@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Attendance Tracks</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Start at</th>
+      <th>End at</th>
+      <th>User project</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @attendance_tracks.each do |attendance_track| %>
+      <tr>
+        <td><%= attendance_track.start_at %></td>
+        <td><%= attendance_track.end_at %></td>
+        <td><%= attendance_track.user_project_id %></td>
+        <td><%= link_to 'Show', attendance_track %></td>
+        <td><%= link_to 'Edit', edit_attendance_track_path(attendance_track) %></td>
+        <td><%= link_to 'Destroy', attendance_track, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Attendance Track', new_attendance_track_path %>

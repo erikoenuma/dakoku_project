@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Start at:</strong>
+  <%= @attendance_track.start_at %>
+</p>
+
+<p>
+  <strong>End at:</strong>
+  <%= @attendance_track.end_at %>
+</p>
+
+<p>
+  <strong>User project:</strong>
+  <%= @attendance_track.user_project_id %>
+</p>
+
+<%= link_to 'Edit', edit_attendance_track_path(@attendance_track) %> |
+<%= link_to 'Back', attendance_tracks_path %>
