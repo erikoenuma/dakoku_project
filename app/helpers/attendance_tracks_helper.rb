@@ -1,0 +1,2 @@
+module AttendanceTracksHelper
+end
