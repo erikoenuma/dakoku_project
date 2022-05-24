@@ -1,3 +1,20 @@
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+  <%= @user_project.project.name %>
+  </button>
+
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <% @user_projects.each do |user_project| %>
+        <% if @user_project.did_enter_finish then %>
+            <%# turbolinksを切らないとリンク先に移動した後ドロップダウンが開かなくなる %>
+            <li><a class="dropdown-item" href="../../<%= user_project.id %>/attendance_tracks/top" data-turbolinks="false"><%= user_project.project.name %></a></li>
+        <% else %>
+            <li><a class="dropdown-item" data-turbolinks="false" onclick="alert('勤務を終了してください')"><%= user_project.project.name %></a></li>
+        <% end %>
+    <% end %>
+  </ul>
+</div>
+
 <p id="notice"><%= notice %></p>
 
 <h1 class="row">
@@ -14,3 +31,29 @@
 </div>
 
 <script src="/packs/js/timer.js"></script>
+<script type="text/javascript">
+
+// 保留↓ ajax is not defined　のエラーが出る
+function finishToMove(end_at, user_project_id) {
+    if (confirm("現在のプロジェクトを終了してもよろしいですか？")){
+
+        $ajax({
+            // 呼び出したいコントローラーのactionまでのパス
+            url: '/attendance_track/register_end_at',
+            // メソッド
+            type: 'PUT',
+            // コントローラー側がparams[:end_at]で受け取るデータ
+            data: { end_at: end_at },
+        })
+        .done(function(response){
+            // 成功時の処理
+            window.location.href = `../../${user_project_id}/attendance_tracks/top`
+        })
+        .fail(function(xhr){
+            // 失敗時の処理
+            alert('終了できませんでした。')
+        });
+    };
+}
+
+</script>

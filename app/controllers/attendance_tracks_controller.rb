@@ -18,6 +18,7 @@ class AttendanceTracksController < ApplicationController
   end
 
   def top 
+    @user_projects = UserProject.all
     @user_project = UserProject.find(params[:user_project_id])
     recentTrack = @user_project.attendance_tracks.last
     if recentTrack.nil? || recentTrack.end_at != nil
@@ -50,6 +51,14 @@ class AttendanceTracksController < ApplicationController
         format.html { redirect_to top_user_project_attendance_tracks_url, notice: "終了時間を打刻しました"}
       else
         format.html { render :top, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def register_end_at_and_move(to)
+    respond_to do |format|
+      if @attendance_track.update(end_at: Time.current.to_s(:db))
+        format.html { redirect_to to }
       end
     end
   end
