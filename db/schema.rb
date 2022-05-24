@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_24_033003) do
+ActiveRecord::Schema.define(version: 2022_05_24_131923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,12 +22,37 @@ ActiveRecord::Schema.define(version: 2022_05_24_033003) do
     t.index ["user_project_id"], name: "index_attendance_tracks_on_user_project_id"
   end
 
+  create_table "authorities", force: :cascade do |t|
+    t.integer "authority", default: 0, null: false
+    t.bigint "user_company_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_company_id"], name: "index_authorities_on_user_company_id"
+  end
+
+  create_table "companies", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "zipcode"
+    t.string "phone_number"
+    t.string "email"
+    t.string "url"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string "name", null: false
     t.string "billing_destination_email"
     t.string "billing_destination_manager"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "user_companies", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "company_id", null: false
+    t.index ["company_id"], name: "index_user_companies_on_company_id"
+    t.index ["user_id"], name: "index_user_companies_on_user_id"
   end
 
   create_table "user_projects", force: :cascade do |t|
@@ -53,6 +78,9 @@ ActiveRecord::Schema.define(version: 2022_05_24_033003) do
   end
 
   add_foreign_key "attendance_tracks", "user_projects"
+  add_foreign_key "authorities", "user_companies"
+  add_foreign_key "user_companies", "companies"
+  add_foreign_key "user_companies", "users"
   add_foreign_key "user_projects", "projects"
   add_foreign_key "user_projects", "users"
 end
