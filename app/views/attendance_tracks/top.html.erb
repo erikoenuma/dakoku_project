@@ -1,0 +1,16 @@
+<p id="notice"><%= notice %></p>
+
+<h1 class="row">
+    <div id="hour" class="col-1"></div>:<div id="min" class="col-1"></div>:<small id="sec"></small>
+</h1>
+
+<div class="row">
+    <%= button_to "開始", register_start_at_user_project_attendance_tracks_url, { disabled: !@attendance_track.id.nil? } %>
+    <% if (@attendance_track.id.nil?) %>
+        <%= button_to "終了", register_start_at_user_project_attendance_tracks_url, disabled: true %>
+    <% else %>
+        <%= button_to "終了", register_end_at_user_project_attendance_track_url(@user_project, @attendance_track), { method: :put, disabled: false } %>
+    <% end %>
+</div>
+
+<script src="/packs/js/timer.js"></script>

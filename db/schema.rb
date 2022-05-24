@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_20_072614) do
+ActiveRecord::Schema.define(version: 2022_05_24_033003) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "attendance_tracks", force: :cascade do |t|
-    t.date "start_at", null: false
-    t.date "end_at", null: false
+    t.datetime "start_at", null: false
+    t.datetime "end_at"
     t.bigint "user_project_id", null: false
     t.index ["user_project_id"], name: "index_attendance_tracks_on_user_project_id"
   end

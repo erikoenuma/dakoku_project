@@ -1,70 +1,64 @@
 class AttendanceTracksController < ApplicationController
-  before_action :set_attendance_track, only: %i[ show edit update destroy ]
+  before_action :set_attendance_track, only: %i[ destroy register_end_at]
+  before_action :authenticate_user!
 
-  # GET /attendance_tracks or /attendance_tracks.json
+  # GET /attendance_tracks
   def index
-    @attendance_tracks = AttendanceTrack.all
+    @user_project = UserProject.find(params[:user_project_id])
+    @attendance_tracks = @user_project.attendance_tracks.all
   end
 
-  # GET /attendance_tracks/1 or /attendance_tracks/1.json
-  def show
-  end
-
-  # GET /attendance_tracks/new
-  def new
-    @attendance_track = AttendanceTrack.new
-  end
-
-  # GET /attendance_tracks/1/edit
-  def edit
-  end
-
-  # POST /attendance_tracks or /attendance_tracks.json
-  def create
-    @attendance_track = AttendanceTrack.new(attendance_track_params)
-
-    respond_to do |format|
-      if @attendance_track.save
-        format.html { redirect_to attendance_track_url(@attendance_track), notice: "Attendance track was successfully created." }
-        format.json { render :show, status: :created, location: @attendance_track }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @attendance_track.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /attendance_tracks/1 or /attendance_tracks/1.json
-  def update
-    respond_to do |format|
-      if @attendance_track.update(attendance_track_params)
-        format.html { redirect_to attendance_track_url(@attendance_track), notice: "Attendance track was successfully updated." }
-        format.json { render :show, status: :ok, location: @attendance_track }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @attendance_track.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /attendance_tracks/1 or /attendance_tracks/1.json
+  # DELETE /attendance_tracks/1
   def destroy
     @attendance_track.destroy
 
     respond_to do |format|
       format.html { redirect_to attendance_tracks_url, notice: "Attendance track was successfully destroyed." }
-      format.json { head :no_content }
+    end
+  end
+
+  def top 
+    @user_project = UserProject.find(params[:user_project_id])
+    recentTrack = @user_project.attendance_tracks.last
+    if recentTrack.nil? || recentTrack.end_at != nil
+      @attendance_track = @user_project.attendance_tracks.new
+    else
+      @attendance_track = recentTrack
+    end
+  end
+
+  # 開始時刻を記録する
+  def register_start_at
+    @user_project = UserProject.find(params[:user_project_id])
+    # タイムゾーンを統一したいのでTime.currentを使用
+    # to_s(:db)を付けてUTCにして、DBに入る形と同じにしている　ミリ秒は保存されない
+    @attendance_track = @user_project.attendance_tracks.new(start_at: Time.current.to_s(:db))
+
+    respond_to do |format|
+      if @attendance_track.save
+        format.html { redirect_to top_user_project_attendance_tracks_url, notice: "開始時間を打刻しました" }
+      else
+        format.html { render :top, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # 終了時刻を記録する
+  def register_end_at
+    respond_to do |format|
+      if @attendance_track.update(end_at: Time.current.to_s(:db))
+        format.html { redirect_to top_user_project_attendance_tracks_url, notice: "終了時間を打刻しました"}
+      else
+        format.html { render :top, status: :unprocessable_entity }
+      end
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_attendance_track
-      @attendance_track = AttendanceTrack.find(params[:id])
+      @user_project = UserProject.find(params[:user_project_id])
+      @attendance_track = @user_project.attendance_tracks.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
-    def attendance_track_params
-      params.require(:attendance_track).permit(:start_at, :end_at, :user_project_id)
-    end
 end
