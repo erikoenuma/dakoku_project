@@ -1,0 +1,43 @@
+ja:
+  activerecord:
+    models:
+      project: '案件'
+      attendance_track: '打刻'
+    attributes:
+      project:
+        name: '案件名'
+        billing_destination_email: '請求先メールアドレス'
+        billing_destination_manager: '請求先担当者'
+      attendance_track:
+        start_at: '開始'
+        end_at: '終了'
+  projects:
+    new:
+      title: '新規案件作成'
+    index:
+      title: '案件一覧'
+    edit:
+      title: '案件編集ページ'
+    show:
+      title: '契約先情報'
+    create:
+      success: '案件を作成しました'
+      failure: '案件作成に失敗しました'
+  helpers:
+    submit:
+      create: "作成する"
+      update: "更新する"
+    links:
+      show: "詳細"
+      back: "戻る"
+      destroy: "削除"
+      edit: "編集"
+      new: "新規作成"
+      cancel: "キャンセル"
+  common:
+    new: 新規作成
+    show: 詳細
+    edit: 編集
+    destroy: 削除
+    back: 戻る
+    confirm_destroy: 本当に削除してもよろしいですか？
