@@ -1,0 +1,132 @@
+[33mcommit 6d8bd67eeccd38ca3632d930e58dccc24a56d3af[m[33m ([m[1;36mHEAD -> [m[1;32mcompany[m[33m)[m
+Author: erikoenuma <koenuma.eri@gmail.com>
+Date:   Tue May 24 23:56:44 2022 +0900
+
+    管理側企業・権限モデル作成
+
+[33mcommit 9a634851a0ae12a6e844d1b3b130759402da64a8[m[33m ([m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m
+Merge: ba50b09 2351a64
+Author: ERI KOENUMA <75299872+erikoenuma@users.noreply.github.com>
+Date:   Tue May 24 18:08:38 2022 +0900
+
+    Merge pull request #3 from erikoenuma/project
+    
+    打刻機能・ProjectモデルのCRUD機能実装
+
+[33mcommit 2351a64f8f513cda2eb2ae4766de12786cf51cb6[m[33m ([m[1;31morigin/project[m[33m, [m[1;32mproject[m[33m)[m
+Author: erikoenuma <koenuma.eri@gmail.com>
+Date:   Tue May 24 18:00:30 2022 +0900
+
+    i18n導入、projectのCRUD機能実装
+
+[33mcommit 5b6ea9f15831bec3f82a4da7a31af9f1d7e1be58[m
+Author: erikoenuma <koenuma.eri@gmail.com>
+Date:   Tue May 24 16:39:36 2022 +0900
+
+    案件切り替え機能を追加
+
+[33mcommit f81817f4acfa7d0ff9b7abf04892af489786dc87[m
+Author: erikoenuma <koenuma.eri@gmail.com>
+Date:   Tue May 24 12:57:49 2022 +0900
+
+    打刻機能追加
+
+[33mcommit 75dc52f6b851876157a1df7dc034733161950cfd[m
+Author: erikoenuma <koenuma.eri@gmail.com>
+Date:   Tue May 24 09:51:21 2022 +0900
+
+    jbuilder削除
+
+[33mcommit ba50b09026e1955c68b9016649f07cde85ff8151[m
+Author: ERI KOENUMA <75299872+erikoenuma@users.noreply.github.com>
+Date:   Mon May 23 15:23:31 2022 +0900
+
+    Update README.md
+
+[33mcommit bf9401b125b62b8c9a294ae529529f7028763638[m
+Author: ERI KOENUMA <75299872+erikoenuma@users.noreply.github.com>
+Date:   Mon May 23 13:51:01 2022 +0900
+
+    Update README.md
+
+[33mcommit bd18111381ea6d968abbb9bfed394f99ba8040f9[m
+Author: ERI KOENUMA <75299872+erikoenuma@users.noreply.github.com>
+Date:   Mon May 23 13:50:10 2022 +0900
+
+    Update README.md
+
+[33mcommit 4cf2212d0d25b1733157d16f83c28a4aa25b219a[m
+Author: erikoenuma <koenuma.eri@gmail.com>
+Date:   Fri May 20 16:36:42 2022 +0900
+
+    打刻情報モデル追加
+
+[33mcommit 3d4b402b936090d37a0c425877d4a156e7bcfd52[m
+Merge: e1aea6d c966a10
+Author: erikoenuma <koenuma.eri@gmail.com>
+Date:   Fri May 20 13:24:09 2022 +0900
+
+    Merge branch 'master' of github.com:erikoenuma/freelance_dakoku into project
+
+[33mcommit c966a10c35871295a24c1edbfe3c1f72984011bb[m
+Merge: 1b3b9ab 4e08107
+Author: ERI KOENUMA <75299872+erikoenuma@users.noreply.github.com>
+Date:   Fri May 20 13:15:26 2022 +0900
+
+    Merge pull request #2 from erikoenuma/login
+    
+    deviseでログイン機能実装
+
+[33mcommit e1aea6dbe4c488888f846a85f3ec6e719a9b82ea[m
+Author: erikoenuma <koenuma.eri@gmail.com>
+Date:   Fri May 20 13:13:41 2022 +0900
+
+    projectモデル追加
+
+[33mcommit 4e08107aba1ce9c32eebb929c996c37378777ab9[m[33m ([m[1;31morigin/login[m[33m, [m[1;32mlogin[m[33m)[m
+Author: erikoenuma <koenuma.eri@gmail.com>
+Date:   Wed May 18 16:12:01 2022 +0900
+
+    deviseでログイン機能実装
+
+[33mcommit 1b3b9ab17b4895328c4b6129b0a733da65f7cf35[m
+Author: erikoenuma <koenuma.eri@gmail.com>
+Date:   Wed May 18 15:38:21 2022 +0900
+
+    Revert "Merge pull request #1 from erikoenuma/login"
+    
+    This reverts commit 0ac34cf972b4cd926bb27c54fc56fe4370d89259, reversing
+    changes made to 113bc4dca83597e38f55485cc512be4c482cb028.
+
+[33mcommit 0ac34cf972b4cd926bb27c54fc56fe4370d89259[m
+Merge: 113bc4d bc0dedc
+Author: ERI KOENUMA <75299872+erikoenuma@users.noreply.github.com>
+Date:   Wed May 18 14:29:32 2022 +0900
+
+    Merge pull request #1 from erikoenuma/login
+    
+    ログイン、新規登録機能追加
+
+[33mcommit bc0dedcb214d2fb836f060c9c64310b354c6b12f[m
+Author: erikoenuma <koenuma.eri@gmail.com>
+Date:   Wed May 18 14:25:00 2022 +0900
+
+    ログイン、新規登録機能追加
+
+[33mcommit 113bc4dca83597e38f55485cc512be4c482cb028[m
+Author: ERI KOENUMA <75299872+erikoenuma@users.noreply.github.com>
+Date:   Tue May 17 18:05:55 2022 +0900
+
+    Update README.md
+
+[33mcommit 03c77eba312d1acab51acae52da90bb38b5fb501[m
+Author: ERI KOENUMA <75299872+erikoenuma@users.noreply.github.com>
+Date:   Tue May 17 18:05:02 2022 +0900
+
+    Update README.md
+
+[33mcommit 468fd942fe217cff7ef1d32e2c09d5d1797614e6[m
+Author: erikoenuma <koenuma.eri@gmail.com>
+Date:   Tue May 17 17:57:51 2022 +0900
+
+    first commit
