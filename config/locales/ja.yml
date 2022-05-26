@@ -32,6 +32,9 @@ ja:
       title: 'アカウント詳細'
     edit:
       title: 'アカウント編集'
+  companies:
+    users:
+      title: '従業員一覧'
   helpers:
     submit:
       create: "作成する"

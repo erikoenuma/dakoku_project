@@ -6,9 +6,9 @@ class User < ApplicationRecord
 
   has_many :user_projects, dependent: :destroy
   has_many :projects, through: :user_projects
-  has_many :attendantce_tracks, through: :user_projects, dependent: :destroy
+  has_many :attendantce_tracks, through: :user_projects
 
-  has_many :user_companies
+  has_many :user_companies, dependent: :destroy
   has_many :companies, through: :user_companies
   has_one :authority, through: :user_companies, dependent: :destroy
 

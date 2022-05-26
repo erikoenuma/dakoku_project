@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     get 'companies/:id/new_employee', :to => 'users/registrations#new_employee', as: :companies_new_employee
     post 'companies/:id/create_employee', :to => 'users/registrations#create_employee', as: :companies_create_employee
     get 'companies/:id/users', :to => 'companies#users', as: :companies_users
+    delete 'companies/:company_id/users/:id', :to => 'users/registrations#destroy_employee', as: :companies_destroy_employee
   end
 
 
