@@ -1,16 +1,8 @@
-class CompaniesController < Devise::SessionsController
+class CompaniesController < ApplicationController
     before_action :set_company, only: [:users]
 
     def users
         @users = @company.users.all
-    end
-
-    def employee_login
-        new
-    end
-
-    def admin_login
-        new
     end
 
     private
