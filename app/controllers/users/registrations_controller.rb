@@ -30,6 +30,24 @@ class Users::RegistrationsController < Devise::RegistrationsController
     respond_with_navigational(resource){ redirect_to companies_users_url(@company) }
   end
 
+  def edit_employee
+    @company = Company.find(params[:company_id])
+    @user = @company.users.find(params[:id])
+  end
+
+  def update_employee
+    @company = Company.find(params[:company_id])
+    @user = @company.users.find(params[:id])
+    respond_to do |format|
+      if @user.update(user_params)
+        format.html { redirect_to companies_users_url(@company) }
+        set_flash_message! :notice, :updated
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # GET /resource/sign_up
   def new
     super
@@ -84,6 +102,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # The path used after sign up for inactive accounts.
   def after_inactive_sign_up_path_for(resource)
     super(resource)
+  end
+
+  def user_params
+    params.require(:user).permit(:name, :email)
   end
 
 end
