@@ -55,6 +55,10 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # ログイン機能
 gem 'devise'
+gem 'devise-i18n'
 
 # 日本語対応
 gem 'rails-i18n'
+
+# letter-opener
+gem 'letter_opener_web'

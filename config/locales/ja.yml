@@ -3,6 +3,7 @@ ja:
     models:
       project: '案件'
       attendance_track: '打刻'
+      user: 'アカウント'
     attributes:
       project:
         name: '案件名'
@@ -11,6 +12,9 @@ ja:
       attendance_track:
         start_at: '開始'
         end_at: '終了'
+      user:
+        name: '名前'
+        email: 'メールアドレス'
   projects:
     new:
       title: '新規案件作成'
@@ -23,6 +27,14 @@ ja:
     create:
       success: '案件を作成しました'
       failure: '案件作成に失敗しました'
+  users:
+    show:
+      title: 'アカウント詳細'
+    edit:
+      title: 'アカウント編集'
+  companies:
+    users:
+      title: '従業員一覧'
   helpers:
     submit:
       create: "作成する"
