@@ -21,14 +21,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
     RegistrationMailer.welcome(@user, generated_password).deliver
   end
 
-  # UserCompanyテーブルから削除するだけ
+  # 従業員削除
   def destroy_employee
     @company = Company.find(params[:company_id])
     @user = @company.users.find(params[:id])
-    @company.user_companies.where(user_id: @user.id).destroy_all
-    respond_to do |format|
-      format.html { redirect_to companies_users_url(@company), notice: "#{@user.name}を従業員から削除しました。" }
-    end
+    @user.destroy
+    set_flash_message! :notice, :employee_destroyed
+    respond_with_navigational(resource){ redirect_to companies_users_url(@company) }
   end
 
   # GET /resource/sign_up
