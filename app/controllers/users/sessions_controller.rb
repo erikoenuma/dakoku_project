@@ -9,7 +9,7 @@ class Users::SessionsController < Devise::SessionsController
     if isAdmin
       sign_in(@user, scope: :user)
       set_flash_message!(:notice, :signed_in)
-      respond_with @user, location: companies_users_url(params[:user][:company_id])
+      respond_with @user, location: companies_users_url(params[:user][:company])
     else
       redirect_to companies_employee_login_path, alert: "管理者権限がありません"
     end 
