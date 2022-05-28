@@ -8,6 +8,7 @@
       <th><%= Project.human_attribute_name :name %></th>
       <th><%= Project.human_attribute_name :billing_destination_email %></th>
       <th><%= Project.human_attribute_name :billing_destination_manager %></th>
+      <th><%= Project.human_attribute_name :budget %></th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -18,6 +19,7 @@
         <td><%= project.name %></td>
         <td><%= project.billing_destination_email %></td>
         <td><%= project.billing_destination_manager %></td>
+        <td><%= project.budget %>万円</td>
         <td><%= link_to t('helpers.links.show'), company_project_url(@company, project) %></td>
         <td><%= link_to t('helpers.links.edit'), edit_company_project_path(@company,project) %></td>
         <td><%= link_to t('helpers.links.destroy'), company_project_url(@company, project), method: :delete, data: { confirm: t('common.confirm_destroy') } %></td>
