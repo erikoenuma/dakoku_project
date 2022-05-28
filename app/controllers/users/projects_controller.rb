@@ -1,4 +1,4 @@
-class ProjectsController < ApplicationController
+class Users::ProjectsController < ApplicationController
   before_action :set_project, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
 
@@ -27,7 +27,7 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-        format.html { redirect_to project_url(@project), notice: "Project was successfully created." }
+        format.html { redirect_to user_custom_projects_path(current_user) , notice: "Project was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
       end
@@ -38,7 +38,7 @@ class ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to project_url(@project), notice: "Project was successfully updated." }
+        format.html { redirect_to user_custom_projects_path(current_user), notice: "Project was successfully updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
       end
@@ -50,7 +50,7 @@ class ProjectsController < ApplicationController
     @project.destroy
 
     respond_to do |format|
-      format.html { redirect_to projects_url, notice: "Project was successfully destroyed." }
+      format.html { redirect_to user_custom_projects_path(current_user), notice: "Project was successfully destroyed." }
     end
   end
 

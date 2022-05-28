@@ -1,0 +1,18 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @project.name %>
+</p>
+
+<p>
+  <strong>Billing destination email:</strong>
+  <%= @project.billing_destination_email %>
+</p>
+
+<p>
+  <strong>Billing destination manager:</strong>
+  <%= @project.billing_destination_manager %>
+</p>
+
+<%= link_to t('helpers.links.back'), user_custom_project(current_user) %>

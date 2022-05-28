@@ -5,6 +5,12 @@ class CompaniesController < ApplicationController
         @users = @company.users.all
     end
 
+    # 従業員をアサインする
+    def assign_employee
+        @project = @company.projects.find(params[:project_id])
+        
+    end
+
     private
 
     def set_company

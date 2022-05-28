@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :projects
+
   devise_for :users, :controllers => { 
     :sessions => 'users/sessions',
     :registrations => 'users/registrations'
@@ -18,8 +18,7 @@ Rails.application.routes.draw do
     put 'companies/:company_id/users/:id/update', :to => 'users/registrations#update_employee', as: :companies_update_employee
   end
 
-
-  resources :user_projects do
+  resources :user_projects, only: [:new, :create, :update, :destroy] do
     resources :attendance_tracks do
       # idつく/つかない → member/collection
       collection do
@@ -31,12 +30,23 @@ Rails.application.routes.draw do
         put "register_end_at"
       end
     end
+
+    resources :contracts
+  end
+
+  resources :companies do
+    scope module: :companies do
+      resources :projects
+    end
+  end
+
+  resources :users do
+    scope module: :users do
+      resources :projects, as: :custom_projects
+    end
   end
 
   resources :users, only: [:show]
-
-  # deviseでログイン後ここに遷移する
-  root to: "projects#index"
 
   # letter_opener
   if Rails.env.development?

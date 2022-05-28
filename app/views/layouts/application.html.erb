@@ -26,7 +26,7 @@
             <% if current_user.user_projects.empty? %>
               <a class="nav-link" href="#">打刻</a>
             <% else %>
-              <a class="nav-link" href="/user_projects/<%= current_user.user_projects.first.id %>/attendance_tracks/top">打刻</a>
+              <a class="nav-link" href="/user_projects/<%= current_user.user_projects.first.id %>/attendance_tracks/top" data-turbolinks="false">打刻</a>
             <% end %>
             </li>
             <li class="nav-item">
@@ -44,7 +44,7 @@
               </ul>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/projects">案件一覧</a>
+              <a class="nav-link" href="/users/<%= current_user.id %>/projects">案件一覧</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/users/<%= current_user.id %>">アカウント</a>
