@@ -11,8 +11,20 @@ class User < ApplicationRecord
   has_one :user_company, dependent: :destroy
   has_one :company, through: :user_company
 
-  def isEmployee
-    return current_user.user_company != nil
+  def company_user
+    return self.user_company != nil
+  end
+
+  def employee
+    return company_user && self.user_company.authority.authority == "employee"
+  end
+
+  def group_admin
+    return company_user && self.user_company.authority.authority == "group_admin"
+  end
+
+  def admin
+    return company_user && self.user_company.authority.authority == "admin"
   end
 
 end

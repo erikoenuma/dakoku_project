@@ -19,54 +19,18 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <% if user_signed_in? %>
-          <%# ログイン済み %>
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-            <% if current_user.user_projects.empty? %>
-              <a class="nav-link" href="#">打刻</a>
-            <% else %>
-              <a class="nav-link" href="/user_projects/<%= current_user.user_projects.first.id %>/attendance_tracks/top" data-turbolinks="false">打刻</a>
+          <% if user_signed_in? %>
+            <% if !current_user.company_user %>
+              <%= render "layouts/user_nav" %>
+            <% elsif current_user.employee %>
+              <%= render 'layouts/employee_nav' %>
+            <% elsif current_user.group_admin %>
+              <%= render "layouts/group_admin_nav" %>
+            <% elsif current_user.admin %>
+              <%= render "layouts/admin_nav" %>
             <% end %>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">実績</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              申請
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/users/<%= current_user.id %>/projects">案件一覧</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/users/<%= current_user.id %>">アカウント</a>
-            </li>
-          </ul>
-
           <% else %>
-            <%# 未ログイン %>
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="/users/sign_up">アカウント作成</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/users/sign_in">ログイン</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/companies/employee_login">従業者ログイン</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/companies/admin_login">管理者ログイン</a>
-              </li>          
-            </ul>
+            <%= render "layouts/log_out_nav" %>
           <% end %>
         </div>
       </div>
