@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_25_040226) do
+ActiveRecord::Schema.define(version: 2022_05_29_115809) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,12 +41,31 @@ ActiveRecord::Schema.define(version: 2022_05_25_040226) do
     t.string "address"
   end
 
+  create_table "contracts", force: :cascade do |t|
+    t.bigint "user_project_id", null: false
+    t.integer "wage"
+    t.string "wage_per"
+    t.integer "hours_per_month"
+    t.date "start_at", null: false
+    t.date "end_at"
+    t.boolean "daily_reports_required", default: false, null: false
+    t.string "role", null: false
+    t.boolean "under_contract", default: true, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_project_id"], name: "index_contracts_on_user_project_id"
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string "name", null: false
     t.string "billing_destination_email"
     t.string "billing_destination_manager"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "company_id"
+    t.integer "budget"
+    t.string "schedule"
+    t.index ["company_id"], name: "index_projects_on_company_id"
   end
 
   create_table "user_companies", force: :cascade do |t|
@@ -80,6 +99,8 @@ ActiveRecord::Schema.define(version: 2022_05_25_040226) do
 
   add_foreign_key "attendance_tracks", "user_projects"
   add_foreign_key "authorities", "user_companies"
+  add_foreign_key "contracts", "user_projects"
+  add_foreign_key "projects", "companies"
   add_foreign_key "user_companies", "companies"
   add_foreign_key "user_companies", "users"
   add_foreign_key "user_projects", "projects"

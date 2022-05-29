@@ -9,7 +9,7 @@ class Users::SessionsController < Devise::SessionsController
     if isAdmin
       sign_in(@user, scope: :user)
       set_flash_message!(:notice, :signed_in)
-      respond_with @user, location: companies_users_url(params[:user][:company_ids])
+      respond_with @user, location: companies_users_url(params[:user][:company])
     else
       redirect_to companies_employee_login_path, alert: "管理者権限がありません"
     end 
@@ -17,7 +17,7 @@ class Users::SessionsController < Devise::SessionsController
 
   # 従業者ログイン
   def create_employee_session
-      if isEmployee
+      if isEmployee_of(params[:user][:company])
         sign_in(@user, scope: :user)
         set_flash_message!(:notice, :signed_in)
         respond_with @user, location: after_sign_in_path_for(@user)
@@ -71,24 +71,45 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def sign_in_params
-    devise_parameter_sanitizer.permit(:sign_in, keys: [:company_ids])
+    devise_parameter_sanitizer.permit(:sign_in, keys: [:company])
+  end
+
+  def after_sign_out_path_for(resource_or_scope)
+    new_user_session_path
+  end
+
+  def after_sign_in_path_for(resource_or_scope)
+    @company = current_user.company
+    if current_user.company.nil?
+      user_custom_projects_path(current_user)
+    else 
+        companies_users_path(@company)
+        # FIXME
+      # case current_user.user_company.authority
+      # when "employee" then
+      #   companies_users_path(@company)
+      # when "group_admin" then
+      #   companies_users_path(@company)
+      # when "admin" then
+      #   companies_users_path(@company)
+      # end
+    end
+
   end
 
   private
 
   # ある会社の従業者かどうか
-  def isEmployee
+  def isEmployee_of(company_id)
     # emailはuniqueなので一つしか返ってこない
     @user = User.where(email:params[:user][:email]).first
-    # formに入力されたcompany_idを取得
-    company_id = params[:user][:company_ids]
     return Company.find(company_id).users.include?(@user)
   end
 
   # ある会社の管理者かどうか
   def isAdmin
     @user = User.where(email:params[:user][:email]).first
-    company_id = params[:user][:company_ids]
+    company_id = params[:user][:company]
     @user_company = UserCompany.where(company_id:company_id, user_id:@user.id).first
     return Company.find(company_id).users.include?(@user) && @user_company.authority.authority != "employee"
   end
@@ -96,7 +117,7 @@ class Users::SessionsController < Devise::SessionsController
   # 従業者かどうか
   def belongs_to_company
     @user = User.where(email:params[:user][:email]).first
-    return !(@user.user_companies.empty?)
+    return !(@user.user_company.nil?)
   end
 
 end

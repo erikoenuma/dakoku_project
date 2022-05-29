@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_project: one
+  wage: 1
+  wage_per: MyString
+  hours_per_month: 1
+  start_at: 2022-05-27
+  end_at: 2022-05-27
+  daily_reports_required: false
+  role: MyString
+  under_contract: false
+
+two:
+  user_project: two
+  wage: 1
+  wage_per: MyString
+  hours_per_month: 1
+  start_at: 2022-05-27
+  end_at: 2022-05-27
+  daily_reports_required: false
+  role: MyString
+  under_contract: false

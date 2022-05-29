@@ -9,32 +9,63 @@ ja:
         name: '案件名'
         billing_destination_email: '請求先メールアドレス'
         billing_destination_manager: '請求先担当者'
+        budget: '予算'
+        schedule: '計画'
       attendance_track:
         start_at: '開始'
         end_at: '終了'
       user:
         name: '名前'
         email: 'メールアドレス'
-  projects:
-    new:
-      title: '新規案件作成'
-    index:
-      title: '案件一覧'
-    edit:
-      title: '案件編集ページ'
-    show:
-      title: '契約先情報'
-    create:
-      success: '案件を作成しました'
-      failure: '案件作成に失敗しました'
+      contract: 
+        wage: '単価'
+        wage_per: '単位'
+        hours_per_month: '契約時間/月'
+        start_at: 'アサイン開始日'
+        end_at: 'アサイン終了日'
+        daily_reports_required: '日報'
+        role: '役割'
+        under_contract: '契約状況'
   users:
     show:
       title: 'アカウント詳細'
     edit:
       title: 'アカウント編集'
+    projects:
+      new:
+        title: '新規案件作成'
+      index:
+        title: '案件一覧'
+      edit:
+        title: '案件編集ページ'
+      show:
+        title: '契約先情報'
+      create:
+        success: '案件を作成しました'
+        failure: '案件作成に失敗しました'
   companies:
     users:
       title: '従業員一覧'
+    projects:
+      new:
+        title: '新規案件作成'
+      index:
+        title: '案件一覧'
+      edit:
+        title: '案件編集ページ'
+      show:
+        title: '契約先情報'
+      create:
+        success: '案件を作成しました'
+        failure: '案件作成に失敗しました'
+    contracts:
+      new_assign_employee:
+        title: '新規アサイン（社員）'
+      new_assign_not_employee:
+        title: '新規アサイン（社員以外）'
+      create:
+        success: '新規アサインに成功しました'
+        failure: '新規アサインに失敗しました'
   helpers:
     submit:
       create: "作成する"
