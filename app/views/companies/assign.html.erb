@@ -15,13 +15,13 @@
 
   <div class="field">
     <%= form.label "案件名" %>
-    <%= form.collection_select :project_id, @projects.all, :id, :name, include_blank: "選択してください" %>
+    <%= form.collection_select :project_id, @projects.all, :id, :name %>
   </div>
 
   <div class="field">
     <%= form.label "雇用形態" %>
     <div>
-        <%= form.radio_button :employee, true %>社員
+        <%= form.radio_button :employee, true, checked: true %>社員
         <%= form.radio_button :employee, false %>社員以外
     </div>
   </div>

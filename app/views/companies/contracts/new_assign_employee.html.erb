@@ -16,7 +16,7 @@
 
   <div class="field">
     <%= form.label "名前" %>
-    <%= form.collection_select :user, @company.users.all, :id, :name, include_blank: "選択してください" %>
+    <%= form.collection_select :user, @company.users.all, :id, :name %>
   </div>
 
   <div class="field">
