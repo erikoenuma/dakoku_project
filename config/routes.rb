@@ -30,13 +30,26 @@ Rails.application.routes.draw do
         put "register_end_at"
       end
     end
-
-    resources :contracts
   end
 
   resources :companies do
     scope module: :companies do
-      resources :projects
+      resources :projects do 
+        member do
+          resources :contracts do 
+            collection do
+              get 'new_assign_employee'
+              get 'new_assign_not_employee'
+              post 'create_employee_assignment'
+              post 'create_not_employee_assignment'
+            end
+          end
+        end
+      end
+    end
+    member do
+      get "assign"
+      get "validate_employee"
     end
   end
 

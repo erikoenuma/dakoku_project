@@ -17,6 +17,15 @@ ja:
       user:
         name: '名前'
         email: 'メールアドレス'
+      contract: 
+        wage: '単価'
+        wage_per: '単位'
+        hours_per_month: '契約時間/月'
+        start_at: 'アサイン開始日'
+        end_at: 'アサイン終了日'
+        daily_reports_required: '日報'
+        role: '役割'
+        under_contract: '契約状況'
   users:
     show:
       title: 'アカウント詳細'
@@ -49,6 +58,14 @@ ja:
       create:
         success: '案件を作成しました'
         failure: '案件作成に失敗しました'
+    contracts:
+      new_assign_employee:
+        title: '新規アサイン（社員）'
+      new_assign_not_employee:
+        title: '新規アサイン（社員以外）'
+      create:
+        success: '新規アサインに成功しました'
+        failure: '新規アサインに失敗しました'
   helpers:
     submit:
       create: "作成する"

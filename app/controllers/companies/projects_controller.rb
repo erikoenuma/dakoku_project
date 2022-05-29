@@ -55,6 +55,7 @@ class Companies::ProjectsController < ApplicationController
       format.html { redirect_to company_projects_url(@company), notice: "Project was successfully destroyed." }
     end
   end
+  
 
   private
     # Use callbacks to share common setup or constraints between actions.
