@@ -7,6 +7,6 @@ class Company < ApplicationRecord
 
     has_many :user_companies
     has_many :users, through: :user_companies
-    has_many :projects, dependent: :destroy
+    has_many :projects
 
 end

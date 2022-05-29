@@ -70,7 +70,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # DELETE /resource
   def destroy
-    super
+    super { |resource|
+      # 独自の処理
+      # projectが企業管理の案件ではない場合削除する
+      resource.projects.each do |project|
+        if project.belongs_to_user
+          project.destroy
+        end
+      end
+    }
   end
 
   # GET /resource/cancel

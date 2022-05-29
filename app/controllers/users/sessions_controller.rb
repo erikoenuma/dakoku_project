@@ -84,6 +84,7 @@ class Users::SessionsController < Devise::SessionsController
       user_custom_projects_path(current_user)
     else 
         companies_users_path(@company)
+        # FIXME
       # case current_user.user_company.authority
       # when "employee" then
       #   companies_users_path(@company)
@@ -93,8 +94,6 @@ class Users::SessionsController < Devise::SessionsController
       #   companies_users_path(@company)
       # end
     end
-
-    # FIXME
 
   end
 

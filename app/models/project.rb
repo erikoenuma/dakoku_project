@@ -5,7 +5,7 @@ class Project < ApplicationRecord
     has_many :contracts, through: :user_projects
     belongs_to :company, optional: true
 
-    def belongs_to_company
-        return self.company_id != nil
+    def belongs_to_user
+        return self.company_id == nil
     end
 end
