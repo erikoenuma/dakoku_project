@@ -18,8 +18,10 @@
         <td><%= project.name %></td>
         <td><%= project.billing_destination_email %></td>
         <td><%= project.billing_destination_manager %></td>
-        <td><%= link_to t('helpers.links.edit'), edit_user_custom_project_path(current_user, project) %></td>
-        <td><%= link_to t('helpers.links.destroy'), user_custom_project_path(current_user, project), method: :delete, data: { confirm: t('common.confirm_destroy') } %></td>
+        <% if project.company.nil? %>
+          <td><%= link_to t('helpers.links.edit'), edit_user_custom_project_path(current_user, project) %></td>
+          <td><%= link_to t('helpers.links.destroy'), user_custom_project_path(current_user, project), method: :delete, data: { confirm: t('common.confirm_destroy') } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
