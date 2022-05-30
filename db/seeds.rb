@@ -22,6 +22,7 @@ user.email = "testEmployee2@test.com"
 user.password = "password"
 user.password_confirmation = "password"
 user.save!
+user.user_company.authority = Authority.create
 company.users << user
 
 admin = User.new
@@ -84,10 +85,3 @@ end
         under_contract: under_contract}
     )
 end
-
-# projectのseedデータ作って案件詳細表示させる
-# 実績表示　月とかいらない、案件ごとに全部表示させるだけにする　管理側/個人側
-# 打刻修正
-# →レイアウトに入る　17:00目安
-
-# UserProject.all.left_joins(:user, :project).select('user_projects.*, users.name, projects.budget').second.budget

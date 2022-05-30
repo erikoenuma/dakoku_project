@@ -11,7 +11,7 @@
     </li>
     <%# 実績 %>
     <li class="nav-item">
-        <a class="nav-link" href="#">実績</a>
+        <a class="nav-link" href="/user_projects/<%= current_user.user_projects.first.id %>/attendance_tracks">実績</a>
     </li>
     <%# 申請 %>
     <li class="nav-item dropdown">
@@ -28,5 +28,9 @@
     <%# 案件一覧 %>
     <li class="nav-item">
         <a class="nav-link" href="/users/<%= current_user.id %>/projects">案件一覧</a>
+    </li>
+    <%# アカウント %>
+    <li class="nav-item">
+        <a class="nav-link" href="/users/<%= current_user.id %>">アカウント</a>
     </li>
 </ul>

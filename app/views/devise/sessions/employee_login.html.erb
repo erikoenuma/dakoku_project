@@ -1,4 +1,6 @@
 <h2>従業者ログイン</h2>
+<p id="notice"><%= notice %></p>
+<p id="alert"><%= alert %></p>
 
 <%= form_for(@user, url: users_create_employee_session_path) do |f| %>
     <%= render "devise/shared/error_messages", resource: resource %>
