@@ -7,7 +7,7 @@ class Companies::UsersController < ApplicationController
         @user_project = @user.user_projects.where(project_id: params[:id]).first
         @contract = @user_project.contract
         @attendance_tracks = @user_project.attendance_tracks
-        @monthly_tracks = @attendance_tracks.group_by{|p| p.start_at.in_time_zone('Tokyo').month }
+        @monthly_tracks = @attendance_tracks.group_by{|p| p.start_at_ja.month }
     end
 
 end

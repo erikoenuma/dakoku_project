@@ -7,7 +7,7 @@ class AttendanceTracksController < ApplicationController
   def index
     @attendance_tracks = @user_project.attendance_tracks.all
     @user_projects = current_user.projects.all
-    @monthly_tracks = @attendance_tracks.group_by{|p| p.start_at.in_time_zone('Tokyo').month }
+    @monthly_tracks = @attendance_tracks.group_by{|p| p.start_at_ja.month }
   end
 
   def search

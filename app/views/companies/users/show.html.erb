@@ -65,7 +65,7 @@
             <%# 最初は月の数字が入ってるのでdrop(1)してattendance_tracksを取得する %>
             <% monthly_track.drop(1).each do |daily_tracks| %>
                 <%# 日付ごとにグループ化する %>
-                <% daily_tracks.group_by{|p| p.start_at.in_time_zone('Tokyo').day}.sort.reverse.each do |tracks| %>
+                <% daily_tracks.group_by{|p| p.start_at_ja.day}.sort.reverse.each do |tracks| %>
                     <tr>
                         <%# 日付 %>
                         <td><%= monthly_track.first %>月<%= tracks.first %>日</td>

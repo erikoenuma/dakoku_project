@@ -2,7 +2,7 @@ class AttendanceTrack < ApplicationRecord
   belongs_to :user_project
 
   def day
-    self.start_at.in_time_zone('Tokyo').strftime("%m月%d日")
+    self.start_at_ja.strftime("%m月%d日")
   end
 
   def time
