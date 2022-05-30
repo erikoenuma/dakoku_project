@@ -1,0 +1,91 @@
+<h1><%= @user.name %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th><%= Project.human_attribute_name :name %></th>
+      <th><%= Contract.human_attribute_name :role %></th>
+      <% if !@user.company_user %>
+        <th><%= Contract.human_attribute_name :role %></th>
+        <th><%= Contract.human_attribute_name :wage %></th>
+        <th><%= Contract.human_attribute_name :hours_per_month %></th>
+        <th>契約期間</th>
+        <th colspan="3"></th>
+      <% end %>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+        <% @projects.each do |project| %>
+            <td><%= project.name %></td>
+            <td><%= @contract.role %></td>
+            <% if !@user.company_user %>
+                <td><%= @contract.wage %>万円/<%= @contract.wage_per %></td>
+                <td><%= @contract.hours_per_month %>時間</td>
+                <td><%= @contract.start_at %>～<%= @contract.end_at %></td>
+                <td><%= @contract.under_contract ? "在籍中" : "退職済" %></td>
+                <td><%= @contract.daily_reports_required ? "要" : "不要" %></td>
+            <% end %>
+        <% end %>
+    </tr>
+  </tbody>
+</table>
+
+<% if @user.company_user %>
+    <table class="table">
+        <thead>
+            <tr>
+            <th><%= Authority.human_attribute_name :authority %></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><%= @user.user_company.authority.to_ja %></td>
+            </tr>
+        </tbody>
+    </table>
+<% end %>
+
+<h2>実績</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>日付</th>
+            <th>実績</th>
+            <th>稼働時間</th>
+            <th>日報</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @monthly_tracks.each do |monthly_track| %>
+            <%# 最初は月の数字が入ってるのでdrop(1)してattendance_tracksを取得する %>
+            <% monthly_track.drop(1).each do |daily_tracks| %>
+                <%# 日付ごとにグループ化する %>
+                <% daily_tracks.group_by{|p| p.start_at.in_time_zone('Tokyo').day}.sort.reverse.each do |tracks| %>
+                    <tr>
+                        <%# 日付 %>
+                        <td><%= monthly_track.first %>月<%= tracks.first %>日</td>
+                        <td>
+                            <%# 実績 %>
+                            <% tracks.second.each do |track| %>
+                                <%= track.time %><br>
+                            <% end %>
+                        </td>
+                        <td>
+                            <%# 稼働時間を算出 %>
+                            <% sum = tracks.second.map{|p| p.duration_minutes }.sum %>
+                            <%= (sum/60/60).round %>時間<%= (sum/60%60).round %>分
+                        </td>
+                        <%# 日報 %>
+                    </tr>
+                <% end %>
+            <% end %>
+        <% end %>
+    </tbody>
+</table>
+
+<%= link_to t('helpers.links.back'), :back %>

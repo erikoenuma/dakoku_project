@@ -44,6 +44,7 @@ Rails.application.routes.draw do
               post 'create_not_employee_assignment'
             end
           end
+          resources :users, as: :members, only: [:show], param: :member
         end
       end
     end

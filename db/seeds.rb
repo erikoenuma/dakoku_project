@@ -41,3 +41,53 @@ group_admin.password_confirmation = "password"
 group_admin.save!
 company.users << group_admin
 group_admin.user_company.authority = Authority.create(authority: "group_admin")
+
+[
+    ['AWAKE', 'awake@example.com', 'awake担当'],
+    ['新規勤怠管理アプリ開発', 'kintai@example.com', '田中', '1000', '2023年4月リリース予定', 1],
+    ['プロジェクトX', 'projectx@example.com', '山崎', '300', '5/31アップデート予定', 1],
+    ['〇×メディア', 'media@example.com', '山田', '200', '10月末までに1000記事', 1]
+].each do |name, email, manager, budget, schedule, company_id|
+    Project.create(
+        {name: name, billing_destination_email: email, billing_destination_manager: manager, budget: budget, schedule: schedule, company_id: company_id}
+    )
+end
+
+[
+    [custom_user.id, 1],
+    [custom_user.id, 2],
+    [user.id, 2],
+    [group_admin.id, 2],
+    [admin.id, 3]
+].each do |user_id, project_id|
+    UserProject.create(
+        {user_id: user_id, project_id: project_id}
+    )
+end
+
+[
+    [1, '30', '月', 160, Time.now, nil, false, 'フロントエンドエンジニア', true],
+    [2, '40', '月', 80, Time.now, Time.now, true, 'フロントエンドエンジニア', true],
+    [3, nil, nil, 160, Time.now, nil, false, 'バックエンドエンジニア', true],
+    [4, nil, nil, 160, Time.now, nil, false, 'マネージャー', true],
+    [5, nil, nil, 160, Time.now, nil, false, '人事', false]
+].each do |user_project_id, wage, wage_per, hours_per_month, start_at, end_at, daily_reports_required, role, under_contract|
+    Contract.create(
+        {user_project_id: user_project_id,
+        wage: wage,
+        wage_per:wage_per,
+        hours_per_month: hours_per_month,
+        start_at: start_at,
+        end_at: end_at,
+        daily_reports_required: daily_reports_required,
+        role: role,
+        under_contract: under_contract}
+    )
+end
+
+# projectのseedデータ作って案件詳細表示させる
+# 実績表示　月とかいらない、案件ごとに全部表示させるだけにする　管理側/個人側
+# 打刻修正
+# →レイアウトに入る　17:00目安
+
+# UserProject.all.left_joins(:user, :project).select('user_projects.*, users.name, projects.budget').second.budget

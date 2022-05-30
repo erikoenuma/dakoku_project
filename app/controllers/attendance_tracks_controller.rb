@@ -18,8 +18,8 @@ class AttendanceTracksController < ApplicationController
   end
 
   def top 
-    @user_projects = UserProject.all
     @user_project = UserProject.find(params[:user_project_id])
+    @user_projects = current_user.user_projects
     recentTrack = @user_project.attendance_tracks.last
     if recentTrack.nil? || recentTrack.end_at != nil
       @attendance_track = @user_project.attendance_tracks.new

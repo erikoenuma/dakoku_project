@@ -10,6 +10,10 @@ class Companies::ProjectsController < ApplicationController
 
   # GET /projects/1 or /projects/1.json
   def show
+    @company = Company.find(params[:company_id])
+    @project = @company.projects.find(params[:id])
+    @employees = @company.users.left_joins(:contracts).select('users.name, user_projects.*, contracts.*').select{|t| @project.user_projects.ids.include?(t.user_project_id)}
+    @not_employees = @project.users.left_joins(:contracts).select('users.name, user_projects.*, contracts.*').select{|t| @project.user_projects.ids.include?(t.user_project_id)} - @employees
   end
 
   # GET /projects/new
