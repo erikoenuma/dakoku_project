@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       collection do
         post "register_start_at"
         get "top"
+        get "search"
       end
 
       member do
@@ -61,6 +62,8 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [:show]
+
+  root to: 'devise/sessions#new'
 
   # letter_opener
   if Rails.env.development?

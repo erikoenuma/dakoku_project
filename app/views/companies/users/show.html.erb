@@ -71,7 +71,7 @@
                         <td><%= monthly_track.first %>月<%= tracks.first %>日</td>
                         <td>
                             <%# 実績 %>
-                            <% tracks.second.each do |track| %>
+                            <% tracks.second.sort{|a, b| a[:start_at] <=> b[:start_at] }.each do |track| %>
                                 <%= track.time %><br>
                             <% end %>
                         </td>

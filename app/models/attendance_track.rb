@@ -19,6 +19,10 @@ class AttendanceTrack < ApplicationRecord
     end
   end
 
+  def start_at_ja 
+    self.start_at.in_time_zone('Tokyo')
+  end
+
   private
 
   def start_time
