@@ -1,6 +1,7 @@
 class Companies::ContractsController < ApplicationController
   before_action :set_contract, only: [:show, :edit, :update, :destroy]
   before_action :set_new_contract, only: [:new_assign_employee, :new_assign_not_employee]
+  before_action :authenticate_user!
 
   # GET /contracts
   def index

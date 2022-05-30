@@ -1,6 +1,7 @@
 class CompaniesController < ApplicationController
     before_action :set_company, only: [:users, :assign, :validate_employee]
-
+    before_action :authenticate_user!
+    
     # 従業員一覧画面
     def users
         @users = @company.users.all
