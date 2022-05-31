@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
+  before_action :authenticate_user!, only: [:new_employee, :create_employee, :destroy_employee, :update_employee, :edit_employee]
 
   # 従業員追加画面
   def new_employee

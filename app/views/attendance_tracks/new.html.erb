@@ -1,0 +1,32 @@
+<h1><%= t('.title') %></h1>
+
+<%= form_with(model: @attendance_track, url: user_project_attendance_tracks_path(@user_project), local: true) do |form| %>
+  <% if @attendance_track.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@attendance_track.errors.count, "error") %> prohibited this project from being saved:</h2>
+
+      <ul>
+        <% @attendance_track.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :start_at %>
+    <%= form.time_select :start_at %>
+  </div>
+
+  <div class="field">
+    <%= form.label :end_at %>
+    <%= form.time_select :end_at %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+
+<%= link_to t('helpers.links.back'), :back %>

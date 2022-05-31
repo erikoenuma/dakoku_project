@@ -1,5 +1,6 @@
 <h1><%= t('.title') %></h1>
 <p id="notice"><%= notice %></p>
+<p id="alert"><%= alert %></p>
 
 <%= form_with(model: @contract, url: create_employee_assignment_company_contracts_url(@company, @project), local: true) do |form| %>
   <% if @contract.errors.any? %>

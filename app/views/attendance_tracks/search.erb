@@ -1,0 +1,26 @@
+<h1><%= t('.title') %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<% if @results.length > 0%>
+<h2><%= @results.first.start_at_ja.month %>月<%= @results.first.start_at_ja.day %>日</h2>
+<table class="table">
+  <tbody>
+    <% @results.each do |track| %>
+      <tr>
+        <td><%= track.time %></td>
+        <td><%= link_to t('helpers.links.edit'), edit_user_project_attendance_track_path(@user_project, track) %></td>
+        <td><%= link_to t('helpers.links.destroy'), user_project_attendance_track_path(@user_project, track), method: :delete, data: { confirm: t('common.confirm_destroy') } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% else %>
+<p>この日の実績はありません。</p>
+
+<% end %>
+
+<%= link_to t('helpers.links.new'), new_user_project_attendance_track_path(@user_project) %>
+<%= link_to t('helpers.links.back'), user_project_attendance_tracks_path(@user_project) %>
+

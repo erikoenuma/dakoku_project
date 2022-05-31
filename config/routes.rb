@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       collection do
         post "register_start_at"
         get "top"
+        get "search"
       end
 
       member do
@@ -44,6 +45,7 @@ Rails.application.routes.draw do
               post 'create_not_employee_assignment'
             end
           end
+          resources :users, as: :members, only: [:show], param: :member
         end
       end
     end
@@ -60,6 +62,8 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [:show]
+
+  root to: 'attendance_tracks#top'
 
   # letter_opener
   if Rails.env.development?

@@ -25,7 +25,9 @@ ja:
         end_at: 'アサイン終了日'
         daily_reports_required: '日報'
         role: '役割'
-        under_contract: '契約状況'
+        under_contract: 'ステータス'
+      authority:
+        authority: '権限'
   users:
     show:
       title: 'アカウント詳細'
@@ -54,7 +56,7 @@ ja:
       edit:
         title: '案件編集ページ'
       show:
-        title: '契約先情報'
+        title: '案件詳細'
       create:
         success: '案件を作成しました'
         failure: '案件作成に失敗しました'
@@ -66,6 +68,23 @@ ja:
       create:
         success: '新規アサインに成功しました'
         failure: '新規アサインに失敗しました'
+  attendance_tracks:
+    index:
+      title: '実績'
+    search:
+      title: '打刻修正'
+    edit:
+      title: '打刻編集'
+    new:
+      title: '打刻追加'
+    destroy:
+      success: '打刻情報を削除しました'
+    update:
+      success: '打刻情報を更新しました'
+      failure: '打刻情報の更新に失敗しました'
+    create:
+      success: '打刻情報を追加しました'
+      failure: '打刻情報の追加に失敗しました'
   helpers:
     submit:
       create: "作成する"
