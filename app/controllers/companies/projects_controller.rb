@@ -1,7 +1,7 @@
 class Companies::ProjectsController < ApplicationController
   before_action :set_project, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
-  load_and_authorize_resource :class => Project
+  authorize_resource
 
 
   # GET /projects or /projects.json
