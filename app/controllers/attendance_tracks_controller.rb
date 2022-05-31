@@ -2,6 +2,7 @@ class AttendanceTracksController < ApplicationController
   before_action :set_attendance_track, only: [:destroy, :register_end_at, :edit, :update]
   before_action :authenticate_user!
   before_action :set_q, only: [:index, :search]
+  authorize_resource
 
   # GET /attendance_tracks
   def index

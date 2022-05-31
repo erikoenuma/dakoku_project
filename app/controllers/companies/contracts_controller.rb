@@ -1,6 +1,9 @@
 class Companies::ContractsController < ApplicationController
   before_action :set_new_contract, only: [:new_assign_employee, :new_assign_not_employee]
   before_action :authenticate_user!
+  load_and_authorize_resource :class => Contract
+
+
 
   # 従業員アサイン画面
   def new_assign_employee
