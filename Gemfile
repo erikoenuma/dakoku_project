@@ -65,3 +65,6 @@ gem 'letter_opener_web'
 
 # 検索機能
 gem 'ransack'
+
+# アクセス制限
+gem 'cancancan'
