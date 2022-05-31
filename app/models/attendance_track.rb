@@ -1,4 +1,5 @@
 class AttendanceTrack < ApplicationRecord
+  validates :start_at, presence: true
   belongs_to :user_project
 
   def day
