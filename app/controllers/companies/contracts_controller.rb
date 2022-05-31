@@ -1,20 +1,6 @@
 class Companies::ContractsController < ApplicationController
-  before_action :set_contract, only: [:show, :edit, :update, :destroy]
   before_action :set_new_contract, only: [:new_assign_employee, :new_assign_not_employee]
   before_action :authenticate_user!
-
-  # GET /contracts
-  def index
-    @contracts = Contract.all
-  end
-
-  # GET /contracts/1
-  def show
-  end
-
-  # GET /contracts/new
-  def new
-  end
 
   # 従業員アサイン画面
   def new_assign_employee
@@ -26,10 +12,6 @@ class Companies::ContractsController < ApplicationController
 
   # GET /contracts/1/edit
   def edit
-  end
-
-  # POST /contracts
-  def create
   end
 
   # 従業員をアサインする
@@ -92,17 +74,7 @@ class Companies::ContractsController < ApplicationController
     end
   end
 
-  # DELETE /contracts/1
-  def destroy
-    @contract.destroy
-    redirect_to contracts_url, notice: 'Contract was successfully destroyed.'
-  end
-
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_contract
-      @contract = Contract.find(params[:id])
-    end
 
     def set_new_contract
       @company = Company.find(params[:company_id])
