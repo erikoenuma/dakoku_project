@@ -1,6 +1,8 @@
 class Users::ProjectsController < ApplicationController
   before_action :set_project, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
+  load_and_authorize_resource :class => Project
+
 
   # GET /projects or /projects.json
   # サインイン後ここにアクセス（projectsが一つでもあれば打刻画面に飛ばす）

@@ -20,6 +20,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @company.user_companies.where(user_id: @user.id).first.authority = Authority.new
     # パスワードをメールで送信する
     RegistrationMailer.welcome(@user, generated_password).deliver
+    
+    respond_to do |format|
+      if @user.save
+        set_flash_message! :notice, :employee_created
+        format.html { redirect_to companies_users_url(@company) }
+      else 
+        format.html { redirect_to companies_new_employee_path(@company), status: :unprocessable_entity }
+      end
+    end
   end
 
   # 従業員削除
@@ -44,7 +53,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         format.html { redirect_to companies_users_url(@company) }
         set_flash_message! :notice, :updated
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { redirect_to companies_edit_employee_path(@company, @user), status: :unprocessable_entity }
       end
     end
   end
@@ -106,6 +115,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # The path used after sign up.
   def after_sign_up_path_for(resource)
     super(resource)
+  end
+
+  # update後のパスを変更
+  def after_update_path_for(resource_or_scope)
+    user_path(resource)
   end
 
   # The path used after sign up for inactive accounts.
