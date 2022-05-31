@@ -1,18 +1,29 @@
-<h1><%= t ('.title') %></h1>
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-11 mx-auto">
+          <h1 class="my-5 text-center"><%= t ('.title') %></h1>
 
-<p id="notice"><%= notice %></p>
+          <p id="notice"><%= notice %></p>
 
-<p>
-  <strong><%= User.human_attribute_name :name %></strong>
-  <%= @user.name %>
-</p>
+          <p>
+            <h5 class="my-3 text-center"><%= User.human_attribute_name :name %></h5>
+            <h6 class="my-3 text-center"><%= @user.name %></h6>
+          </p>
 
-<p>
-  <strong><%= User.human_attribute_name :email %></strong>
-  <%= @user.email %>
-</p>
+          <p>
+            <h5 class="my-3 text-center"><%= User.human_attribute_name :email %></h5>
+            <h6 class="my-3 text-center"><%= @user.email %></h6>
+          </p>
 
-<%= link_to t('helpers.links.edit'), edit_user_registration_path %>
-<%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-
+          <div class="row justify-content-center">
+              <div class="col-xs-3 px-2">
+                <%= link_to t('helpers.links.edit'), edit_user_registration_path, class:"btn btn-info" %>
+              </div>
+              <div class="col-xs-3 px-2">
+                <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
+              </div>
+          </div>
+        </div>
+    </div>
+</div>
 

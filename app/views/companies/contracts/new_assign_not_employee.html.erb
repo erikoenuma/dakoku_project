@@ -16,7 +16,7 @@
 
   <div class="field">
     <%= form.label "メールアドレス" %>
-    <%= form.email_field :email %>
+    <%= form.email_field :email, required :true, maxlength:"255" %>
   </div>
 
   <div class="field">
@@ -31,7 +31,7 @@
 
   <div class="field">
     <%= form.label :start_at %>
-    <%= form.date_select :start_at %>
+    <%= form.date_select :start_at, required :true %>
   </div>
 
   <div class="field">
@@ -41,7 +41,7 @@
 
   <div class="field">
     <%= form.label :role %>
-    <%= form.text_field :role %>
+    <%= form.text_field :role, required :true, maxlength:"255" %>
   </div>
 
   <div class="field">

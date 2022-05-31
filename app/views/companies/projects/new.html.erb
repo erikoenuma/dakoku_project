@@ -15,17 +15,17 @@
 
   <div class="field">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, required: true, maxlength:"255" %>
   </div>
 
   <div class="field">
     <%= form.label :billing_destination_email %>
-    <%= form.text_field :billing_destination_email %>
+    <%= form.text_field :billing_destination_email, maxlength:"255" %>
   </div>
 
   <div class="field">
     <%= form.label :billing_destination_manager %>
-    <%= form.text_field :billing_destination_manager %>
+    <%= form.text_field :billing_destination_manager, maxlength:"255" %>
   </div>
 
   <div class="field">

@@ -3,17 +3,6 @@
 <p id="alert"><%= alert %></p>
 
 <%= form_with(model: @contract, url: create_employee_assignment_company_contracts_url(@company, @project), local: true) do |form| %>
-  <% if @contract.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@contract.errors.count, "error") %> prohibited this @contract from being saved:</h2>
-
-      <ul>
-        <% @contract.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
 
   <div class="field">
     <%= form.label "名前" %>
@@ -22,7 +11,7 @@
 
   <div class="field">
     <%= form.label :start_at %>
-    <%= form.date_select :start_at %>
+    <%= form.date_select :start_at, required: true %>
   </div>
 
   <div class="field">
@@ -32,7 +21,7 @@
 
   <div class="field">
     <%= form.label :role %>
-    <%= form.text_field :role %>
+    <%= form.text_field :role, required: true, maxlength:"255"%>
   </div>
 
   <div class="field">
