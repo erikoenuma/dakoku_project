@@ -1,9 +1,7 @@
 class Companies::ContractsController < ApplicationController
   before_action :set_new_contract, only: [:new_assign_employee, :new_assign_not_employee]
   before_action :authenticate_user!
-  load_and_authorize_resource :class => Contract
-
-
+  authorize_resource
 
   # 従業員アサイン画面
   def new_assign_employee
@@ -27,10 +25,10 @@ class Companies::ContractsController < ApplicationController
       redirect_to new_assign_employee_company_contracts_path(@company, @project)
       return
     end
-
     @user_project = UserProject.find_or_create_by(project_id: params[:id], user_id: params[:contract][:user])
     @contract = Contract.create(contract_params)
     @user_project.contract = @contract
+    puts @contract
 
     respond_to do |format|
       if @contract.save

@@ -27,7 +27,8 @@ class Ability
             project.company == user.company
           end
           can :read, User
-    #       can manage: Contract
+          can [:assign, :validate_employee], Company
+          can :manage, Contract
 
           # 管理者
           if user.user_company.authority.authority == "admin"
@@ -40,7 +41,6 @@ class Ability
         end
       end
     end
-
   end
 
 end
