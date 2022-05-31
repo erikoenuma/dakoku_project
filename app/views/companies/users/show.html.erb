@@ -18,8 +18,8 @@
   </thead>
 
   <tbody>
-    <tr>
-        <% @projects.each do |project| %>
+    <% @projects.each do |project| %>
+        <tr>
             <td><%= project.name %></td>
             <td><%= @contract.role %></td>
             <% if !@user.company_user %>
@@ -29,8 +29,8 @@
                 <td><%= @contract.under_contract ? "在籍中" : "退職済" %></td>
                 <td><%= @contract.daily_reports_required ? "要" : "不要" %></td>
             <% end %>
-        <% end %>
-    </tr>
+        </tr>
+    <% end %>
   </tbody>
 </table>
 

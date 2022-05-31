@@ -12,8 +12,8 @@ class Companies::ProjectsController < ApplicationController
   def show
     @company = Company.find(params[:company_id])
     @project = @company.projects.find(params[:id])
-    @employees = @company.users.left_joins(:contracts).select('users.name, user_projects.*, contracts.*').select{|t| @project.user_projects.ids.include?(t.user_project_id)}
-    @not_employees = @project.users.left_joins(:contracts).select('users.name, user_projects.*, contracts.*').select{|t| @project.user_projects.ids.include?(t.user_project_id)} - @employees
+    @employees = @company.users.left_joins(:contract).select('users.name, user_projects.*, contracts.*').select{|t| @project.user_projects.ids.include?(t.user_project_id)}
+    @not_employees = @project.users.left_joins(:contract).select('users.name, user_projects.*, contracts.*').select{|t| @project.user_projects.ids.include?(t.user_project_id)} - @employees
   end
 
   # GET /projects/new
@@ -33,7 +33,7 @@ class Companies::ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-        format.html { redirect_to company_project_url(@company, @project), notice: "Project was successfully created." }
+        format.html { redirect_to company_projects_url(@company), notice: "Project was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
       end
@@ -44,7 +44,7 @@ class Companies::ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to company_project_url(@company, @project), notice: "Project was successfully updated." }
+        format.html { redirect_to company_projects_url(@company), notice: "Project was successfully updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
       end

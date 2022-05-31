@@ -30,26 +30,22 @@ class Companies::ContractsController < ApplicationController
 
   # POST /contracts
   def create
-    @company = Company.find(params[:company_id])
-    @project = @company.projects.find(params[:id])
-    @project.users << User.find(params[:contract][:user])
-    @user_project = UserProject.where(project_id: params[:id], user_id: params[:contract][:user]).first
-    @contract = @user_project.contracts.create(contract_params)
-
-    if @contract.save
-      redirect_to company_project_path(@company, @project), notice: t('.create.success')
-    else
-      render :new_assign_employee
-    end
   end
 
   # 従業員をアサインする
   def create_employee_assignment
     @company = Company.find(params[:company_id])
     @project = @company.projects.find(params[:id])
-    @project.users << User.find(params[:contract][:user])
-    @user_project = UserProject.where(project_id: params[:id], user_id: params[:contract][:user]).first
-    @contract = @user_project.contracts.create(contract_params)
+
+    if @project.user_ids.include?(Integer(params[:contract][:user]))
+      flash[:alert] = "そのユーザーは既にアサインされています"
+      redirect_to new_assign_employee_company_contracts_path(@company, @project)
+      return
+    end
+
+    @user_project = UserProject.find_or_create_by(project_id: params[:id], user_id: params[:contract][:user])
+    @contract = Contract.create(contract_params)
+    @user_project.contract = @contract
 
     respond_to do |format|
       if @contract.save
@@ -69,10 +65,13 @@ class Companies::ContractsController < ApplicationController
       redirect_to new_assign_not_employee_company_contracts_path(@company, @project), alert: "そのユーザーは存在しません。メールアドレスを確認してください。"
     elsif @user.company_user
       redirect_to new_assign_not_employee_company_contracts_path(@company, @project), alert: "企業に属しているためアサインできません"
+    elsif @project.user_ids.include?(Integer(params[:contract][:user]))
+      redirect_to new_assign_not_employee_company_contracts_path(@company, @project), alert: "そのユーザーは既にアサインされています"
     else 
-      @project.users << @user
-      @user_project = UserProject.where(project_id: params[:id], user_id: params[:contract][:user]).first
-      @contract = @user_project.contracts.create(contract_params)
+
+      @user_project = UserProject.find_or_create_by(project_id: params[:id], user_id: params[:contract][:user])
+      @contract = Contract.create(contract_params)
+      @user_project.contract = @contract
 
       respond_to do |format|
         if @contract.save
@@ -113,6 +112,6 @@ class Companies::ContractsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def contract_params
-      params.require(:contract).permit(:user_project_id, :wage, :wage_per, :hours_per_month, :start_at, :end_at, :daily_reports_required, :role, :under_contract)
+      params.require(:contract).permit(:wage, :wage_per, :hours_per_month, :start_at, :end_at, :daily_reports_required, :role, :under_contract)
     end
 end

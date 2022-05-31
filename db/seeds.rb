@@ -22,8 +22,8 @@ user.email = "testEmployee2@test.com"
 user.password = "password"
 user.password_confirmation = "password"
 user.save!
-user.user_company.authority = Authority.create
 company.users << user
+user.user_company.authority = Authority.create
 
 admin = User.new
 admin.name = "admin"
