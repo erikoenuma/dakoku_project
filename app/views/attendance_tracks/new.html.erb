@@ -2,12 +2,12 @@
 
 <%= form_with(model: @attendance_track, url: user_project_attendance_tracks_path(@user_project), local: true) do |form| %>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :start_at %>
-    <%= form.time_select :start_at, required :true%>
+    <%= form.time_select :start_at, required: true %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :end_at %>
     <%= form.time_select :end_at, include_blank: "" %>
   </div>

@@ -6,7 +6,7 @@ class Ability
   def initialize(user)
     # ユーザーがログイン済みかどうか
     if user.present?
-      can :manage, AttendanceTrack, user: user
+      can :manage, AttendanceTrack
       # 個人ユーザー
       if user.user_company.nil?
         # 企業プロジェクトはreadのみ
