@@ -6,8 +6,11 @@ class AttendanceTracksController < ApplicationController
   # GET /attendance_tracks
   def index
     @attendance_tracks = @user_project.attendance_tracks.all
-    @user_projects = current_user.projects.all
-    @monthly_tracks = @attendance_tracks.group_by{|p| p.start_at_ja.month }
+    @user_projects = current_user.user_projects.all
+    @yearly_tracks = @attendance_tracks.group_by{|p| p.start_at_ja.year }
+    if @yearly_tracks != nil && @yearly_tracks.length > 0
+      @monthly_tracks = @yearly_tracks[Time.now.year].group_by{|p| p.start_at_ja.month }
+    end
   end
 
   def search
@@ -73,9 +76,9 @@ class AttendanceTracksController < ApplicationController
   # 開始時刻を記録する
   def register_start_at
     @user_project = UserProject.find(params[:user_project_id])
-    # タイムゾーンを統一したいのでTime.currentを使用
+    # タイムゾーンを日本に統一したいのでTime.currentを使用
     # to_s(:db)を付けてUTCにして、DBに入る形と同じにしている　ミリ秒は保存されない
-    @attendance_track = @user_project.attendance_tracks.new(start_at: Time.current.to_s(:db))
+    @attendance_track = @user_project.attendance_tracks.new(start_at: Time.now.to_s(:db))
 
     respond_to do |format|
       if @attendance_track.save
@@ -89,7 +92,7 @@ class AttendanceTracksController < ApplicationController
   # 終了時刻を記録する
   def register_end_at
     respond_to do |format|
-      if @attendance_track.update(end_at: Time.current.to_s(:db))
+      if @attendance_track.update(end_at: Time.now.to_s(:db))
         format.html { redirect_to top_user_project_attendance_tracks_url, notice: "終了時間を打刻しました"}
       else
         format.html { render :top, status: :unprocessable_entity }

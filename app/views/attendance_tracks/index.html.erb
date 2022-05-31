@@ -4,17 +4,18 @@
 
 <div class="dropdown">
   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+  <% p @user_project %>
   <%= @user_project.project.name %>
   </button>
 
   <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
     <% @user_projects.each do |user_project| %>
-        <li><a class="dropdown-item" href="../<%= user_project.id %>/attendance_tracks" data-turbolinks="false"><%= user_project.name %></a></li>
+        <li><a class="dropdown-item" href="../<%= user_project.id %>/attendance_tracks" data-turbolinks="false"><%= user_project.project.name %></a></li>
     <% end %>
   </ul>
 </div>
 
-<% if @attendance_tracks.length > 0 %>
+<% if @monthly_tracks != nil && @monthly_tracks.length > 0 %>
 
 <table class="table">
     <thead>

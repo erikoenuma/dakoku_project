@@ -21,12 +21,12 @@
 
   <div class="field">
     <%= form.label :wage %>
-    <%= form.number_field :wage %>/<%= form.text_field :wage_per %>
+    <%= form.number_field :wage %>円/<%= form.select :wage_per, [["月", "月"], ["1時間","1時間"]] %>
   </div>
 
   <div class="field">
     <%= form.label :hours_per_month %>
-    <%= form.number_field :hours_per_month %>
+    <%= form.number_field :hours_per_month %>時間
   </div>
 
   <div class="field">

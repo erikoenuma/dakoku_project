@@ -47,11 +47,11 @@ class Companies::ContractsController < ApplicationController
       redirect_to new_assign_not_employee_company_contracts_path(@company, @project), alert: "そのユーザーは存在しません。メールアドレスを確認してください。"
     elsif @user.company_user
       redirect_to new_assign_not_employee_company_contracts_path(@company, @project), alert: "企業に属しているためアサインできません"
-    elsif @project.user_ids.include?(Integer(params[:contract][:user]))
+    elsif @project.users.include?(@user)
       redirect_to new_assign_not_employee_company_contracts_path(@company, @project), alert: "そのユーザーは既にアサインされています"
     else 
 
-      @user_project = UserProject.find_or_create_by(project_id: params[:id], user_id: params[:contract][:user])
+      @user_project = UserProject.find_or_create_by(project_id: params[:id], user_id: @user.id)
       @contract = Contract.create(contract_params)
       @user_project.contract = @contract
 

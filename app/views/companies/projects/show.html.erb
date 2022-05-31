@@ -81,7 +81,7 @@
         <tr style="cursor: hand; cursor:pointer;", onclick="window.location = './<%= @project.id %>/users/<%= user.user_id %>'">
           <td><%= user.name %></td>
           <td><%= user.role %></td>
-          <td><%= user.wage %>万円/<%= user.wage_per %></td>
+          <td><%= user.wage %>円/<%= user.wage_per %></td>
           <td><%= user.hours_per_month %>時間</td>
           <td><%= user.start_at %>～<%= user.end_at %></td>
           <td><%= user.under_contract ? "在籍中" : "退職済" %></td>
