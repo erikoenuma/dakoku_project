@@ -7,17 +7,17 @@
 
     <div class="field">
         <%= f.label "企業ID" %><br />
-        <%= f.text_field :company, autofocus: true, autocomplete: "company" %>
+        <%= f.text_field :company, autofocus: true, autocomplete: "company", required: true %>
     </div>
 
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", required: true, maxlength:"255" %>
   </div>
 
   <div class="field">
     <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
+    <%= f.password_field :password, autocomplete: "current-password" , required: true, maxlength:"255",minlength: "6" %>
   </div>
 
   <% if devise_mapping.rememberable? %>

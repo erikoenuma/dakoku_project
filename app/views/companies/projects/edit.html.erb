@@ -1,31 +1,20 @@
 <h1><%= t('.title') %></h1>
 
 <%= form_with(model: @project, url: company_project_path(@company, @project), local: true) do |form| %>
-  <% if @project.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h2>
-
-      <ul>
-        <% @project.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
 
   <div class="field">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, required :true, maxlength:"255" %>
   </div>
 
   <div class="field">
     <%= form.label :billing_destination_email %>
-    <%= form.text_field :billing_destination_email %>
+    <%= form.text_field :billing_destination_email, maxlength:"255" %>
   </div>
 
   <div class="field">
     <%= form.label :billing_destination_manager %>
-    <%= form.text_field :billing_destination_manager %>
+    <%= form.text_field :billing_destination_manager, maxlength:"255" %>
   </div>
 
   <div class="field">

@@ -1,37 +1,41 @@
-<h1><%= t ('.title') %></h1>
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-10">
+            <h1 class="my-5 text-center"><%= t ('.title') %></h1>
+              <div class="col-md-12">
+                <%= form_with(model: @project, url: user_custom_projects_path(current_user), local: true) do |form| %>
 
-<%= form_with(model: @project, url: user_custom_projects_path(current_user), local: true) do |form| %>
-  <% if @project.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h2>
+                  <div class="form-row justify-content-center">
+                    <div class="form-group col-md-6">
+                      <label><%= form.label :name %></label>
+                      <%= form.text_field :name, class:"form-control", placeholder:"案件名", required:true, maxlength:"255" %>
+                    </div>
+                  </div>
 
-      <ul>
-        <% @project.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+                  <div class="form-row justify-content-center">
+                    <div class="form-group col-md-6">
+                      <label><%= form.label :billing_destination_email %></label>
+                      <%= form.text_field :billing_destination_email, class:"form-control", placeholder: "jinji@test.com", maxlength:"255" %>
+                    </div>
+                  </div>
+
+                  <div class="form-row justify-content-center">
+                    <div class="form-group col-md-6">
+                      <label><%= form.label :billing_destination_manager %></label>
+                      <%= form.text_field :billing_destination_manager, class:"form-control", placeholder: "○○様", maxlength:"255" %>
+                    </div>
+                  </div>
+                  <div class="row text-right">
+                      <div class="col-xs-3">
+                        <%= link_to t('helpers.links.back'), user_custom_projects_path(current_user), class:"btn btn-outline-light btn-lg" %>
+                      </div>
+                      <div class="col-8">
+                        <button type="submit" class="btn btn-primary mb-5 btn-lg">決定</button>
+                      </div>
+                  </div> 
+                <% end %>
+              </div>
+            </div>
+        </div>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :billing_destination_email %>
-    <%= form.text_field :billing_destination_email %>
-  </div>
-
-  <div class="field">
-    <%= form.label :billing_destination_manager %>
-    <%= form.text_field :billing_destination_manager %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
-
-
-<%= link_to t('helpers.links.back'), user_custom_projects_path(current_user) %>
+</div>

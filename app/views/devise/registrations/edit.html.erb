@@ -7,31 +7,27 @@
 
   <div class="field">
     <%= f.label :name %>
-    <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+    <%= f.text_field :name, autofocus: true, autocomplete: "name", required: true, maxlength:"30"%>
   </div>
 
   <div class="field">
     <%= f.label :email %>
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", required: true, maxlength:"255" %>
   </div>
 
   <div class="field">
     <%= f.label :password %> <i>(変更しない場合は空にしてください)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %>文字以上</em>
-    <% end %>
+    <%= f.password_field :password, autocomplete: "new-password", maxlength:"255", minlength:"6" %>
   </div>
 
   <div class="field">
     <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", minlength: "6", maxlength: "255"%>
   </div>
 
   <div class="field">
     <%= f.label :current_password %>
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
+    <%= f.password_field :current_password, autocomplete: "current-password", required: true, maxlength:"255", minlength: "6"%>
   </div>
 
   <div class="actions">
