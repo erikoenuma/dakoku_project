@@ -66,7 +66,7 @@ class Companies::ContractsController < ApplicationController
   # PATCH/PUT /contracts/1
   def update
     if @contract.update(contract_params)
-      redirect_to @contract, notice: 'Contract was successfully updated.'
+      redirect_to @contract, notice: t('.success')
     else
       render :edit
     end

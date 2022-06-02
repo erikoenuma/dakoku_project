@@ -33,6 +33,7 @@ ja:
       title: 'アカウント詳細'
     edit:
       title: 'アカウント編集'
+    
     projects:
       new:
         title: '新規案件作成'
@@ -60,6 +61,11 @@ ja:
       create:
         success: '案件を作成しました'
         failure: '案件作成に失敗しました'
+      update:
+        success: '案件を更新しました'
+        failure: '案件更新に失敗しました'
+    destroyed: 
+        success: '案件を削除しました'
     contracts:
       new_assign_employee:
         title: '新規アサイン（社員）'
@@ -68,6 +74,11 @@ ja:
       create:
         success: '新規アサインに成功しました'
         failure: '新規アサインに失敗しました'
+      update:
+        success: '契約内容を更新しました'
+        failure: '契約内容の更新に失敗しました'
+    assign:
+      title: '新規アサイン'
   attendance_tracks:
     index:
       title: '実績'
@@ -85,6 +96,13 @@ ja:
     create:
       success: '打刻情報を追加しました'
       failure: '打刻情報の追加に失敗しました'
+    register_start_at:
+      success: '開始時刻を打刻しました'
+      failure: '終了時刻の打刻に失敗しました'
+    register_end_at:
+      success: '終了時刻を打刻しました'
+      failure: '終了時刻の打刻に失敗しました'
+    
   helpers:
     submit:
       create: "作成する"
