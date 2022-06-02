@@ -1,29 +1,93 @@
-<div class="container px-4 px-lg-5">
-    <div class="row gx-4 gx-lg-5 justify-content-center">
-        <div class="col-md-10 col-lg-8 col-xl-11 mx-auto">
-          <h1 class="my-5 text-center"><%= t ('.title') %></h1>
-
-          <p id="notice"><%= notice %></p>
-
-          <p>
-            <h5 class="my-3 text-center"><%= User.human_attribute_name :name %></h5>
-            <h6 class="my-3 text-center"><%= @user.name %></h6>
-          </p>
-
-          <p>
-            <h5 class="my-3 text-center"><%= User.human_attribute_name :email %></h5>
-            <h6 class="my-3 text-center"><%= @user.email %></h6>
-          </p>
-
-          <div class="row justify-content-center">
-              <div class="col-xs-3 px-2">
-                <%= link_to t('helpers.links.edit'), edit_user_registration_path, class:"btn btn-info" %>
+<div class="container">
+  <div class="show">
+    <div class="card">
+        <div class="card-content"> 
+              <div class="text-center">
+                <h2><%= @user.name %></h2>
               </div>
-              <div class="col-xs-3 px-2">
-                <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
+              
+              <div class="stats">
+                  <div class="stat1">
+                      <span><%= @user.email %></span>
+                      <span></span>
+                  </div>
               </div>
-          </div>
+              
+              <div class="buttons">
+                <%= link_to t('helpers.links.edit'), edit_user_registration_path, class:"edit btn btn-primary" %>
+                <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "logout btn btn-dark" %>
+              </div>
+            </div>
         </div>
     </div>
 </div>
 
+<style>
+*{
+    margin:0;
+    padding:0;
+}
+.container .show{
+    background-color:#ffffff;
+    min-height:80vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+.card{
+    height:320px;
+    width:350px;
+    border-radius:15px;
+    background-color:#fefefe;
+    display:flex;
+    justify-content:center;
+    padding:50px 0px;
+    box-shadow: 23px 17px 64px -14px rgba(90,87,87,0.75);
+}
+
+.card-content{
+    width: 100%;
+    padding: 10px 34px;
+}
+
+.text-center{
+    display:flex;
+    justify-content:center;
+}
+
+.stats{
+    display:flex;
+    justify-content:center;
+    margin-top:30px;
+    text-align:center;
+}
+
+.stat1{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.stat1 span:nth-child(1){
+    font-size:20px;
+    color:gray;
+    font-weight:800;
+}
+
+.buttons{
+    display:flex;
+    justify-content:center;
+    margin-top:30px;
+}
+
+.buttons a{
+    height:40px;
+    width:130px;
+    margin:10px 7px;
+    border:none;
+    border-radius:5px;
+    color:#fff;
+    font-size:15px;
+    cursor:pointer;
+}
+</style>

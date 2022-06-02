@@ -20,15 +20,13 @@ class Companies::ContractsController < ApplicationController
     @company = Company.find(params[:company_id])
     @project = @company.projects.find(params[:id])
 
-    if @project.user_ids.include?(Integer(params[:contract][:user]))
+    if @project.user_ids.include?(Integer(params[:user_id]))
       flash[:alert] = "そのユーザーは既にアサインされています"
       redirect_to new_assign_employee_company_contracts_path(@company, @project)
       return
     end
-    @user_project = UserProject.find_or_create_by(project_id: params[:id], user_id: params[:contract][:user])
-    @contract = Contract.create(contract_params)
-    @user_project.contract = @contract
-    puts @contract
+    @user_project = UserProject.find_or_create_by(project_id: params[:id], user_id: params[:user_id])
+    @contract = @user_project.build_contract(contract_params)
 
     respond_to do |format|
       if @contract.save
@@ -53,8 +51,7 @@ class Companies::ContractsController < ApplicationController
     else 
 
       @user_project = UserProject.find_or_create_by(project_id: params[:id], user_id: @user.id)
-      @contract = Contract.create(contract_params)
-      @user_project.contract = @contract
+      @contract = @user_project.build_contract(contract_params)
 
       respond_to do |format|
         if @contract.save

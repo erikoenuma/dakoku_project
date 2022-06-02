@@ -1,22 +1,35 @@
-<h2>新規従業員作成</h2>
+<section class="vh-100">
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-md-9 col-lg-6 col-xl-5">
+        <img src="https://img.freepik.com/free-vector/people-putting-puzzle-pieces-together_52683-28610.jpg?t=st=1654058928~exp=1654059528~hmac=1e25aceb70630aba4bf9fb6ae746b9f923f35a2cc62ee9cc01c8141bfdf1be22&w=900"
+          class="img-fluid" alt="Sample image">
+      </div>
+      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+        <%= form_for(resource, as: resource_name, url: companies_create_employee_url) do |f| %>
+          <%= render "devise/shared/error_messages", resource: resource %>
 
-<%= form_for(resource, as: resource_name, url: companies_create_employee_url) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+          <div class="divider d-flex align-items-center my-4">
+              <h4 class="text-center fw-bold mx-3 mb-0">従業員追加</h4>
+          </div>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, autofocus: true, autocomplete: "name", required: true, maxlength:"30"%>
+          <div class="form-outline mb-3">
+            <%= f.text_field :name, id:"form3Example3", class:"form-control", autofocus: true, autocomplete: "name", placeholder:"ユーザー名", required: true, maxlength: "30" %>
+          </div>
+
+          <div class="form-outline mb-3">
+            <%= f.email_field :email, id:"form3Example3", class:"form-control", autofocus: true, autocomplete: "email", placeholder:"メールアドレス", required: true, maxlength:"255" %>
+          </div>
+
+          <div class="text-center text-lg-start mt-4 pt-2">
+            <%= f.submit "決定", class:"btn btn-primary btn-lg", style:"padding-left: 2.5rem; padding-right: 2.5rem;" %>
+            <p class="small fw-bold mt-2 pt-1 mb-0">
+            <%= link_to t('helpers.links.back'), companies_users_path(@company) %></p>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
+</section>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", required: true, maxlength:"30" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
-
-<%= link_to t('helpers.links.back'), companies_users_path(@company) %>
-
+<link href="login.scss" rel="stylesheet">

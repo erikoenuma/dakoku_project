@@ -38,10 +38,12 @@ class Users::ProjectsController < ApplicationController
 
   # PATCH/PUT /projects/1 or /projects/1.json
   def update
+    puts "呼ばれてます"
     respond_to do |format|
       if @project.update(project_params)
         format.html { redirect_to user_custom_projects_path(current_user), notice: "Project was successfully updated." }
       else
+        flash[:alert] = "案件の保存に失敗しました"
         format.html { render :edit, status: :unprocessable_entity }
       end
     end

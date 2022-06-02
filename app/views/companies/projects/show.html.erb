@@ -1,97 +1,102 @@
-<h1><%= t('.title') %></h1>
-<p id="notice"><%= notice %></p>
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-11 mx-auto">
+            <div class="row mt-4 align-items-center">
+              <div class="col-3"><h1><%= t('.title') %></h1></div>
+              <div class="col-3"><%= link_to "新規アサイン", assign_company_path(@company), class:"btn btn-primary btn-sm my-5"%></div>
+            </div>
 
-<%= link_to "新規アサイン", assign_company_path(@company) %>
+          <table class="table">
+            <thead class="thead-light">
+              <tr>
+                <th><%= Project.human_attribute_name :name %></th>
+                <th><%= Project.human_attribute_name :billing_destination_email %></th>
+                <th><%= Project.human_attribute_name :billing_destination_manager %></th>
+                <th><%= Project.human_attribute_name :budget %></th>
+                <th colspan="3"></th>
+              </tr>
+            </thead>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th><%= Project.human_attribute_name :name %></th>
-      <th><%= Project.human_attribute_name :billing_destination_email %></th>
-      <th><%= Project.human_attribute_name :billing_destination_manager %></th>
-      <th><%= Project.human_attribute_name :budget %></th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+            <tbody>
+              <tr>
+                <td><%= @project.name %></td>
+                <td><%= @project.billing_destination_email %></td>
+                <td><%= @project.billing_destination_manager %></td>
+                <td><%= @project.budget %>万円</td>
+              </tr>
+            </tbody>
+          </table>
+          
+          <div class="mb-5 mt-2">
+            <h4><%= Project.human_attribute_name :schedule %></h4>
+            <%= @project.schedule %>
+          </div>
 
-  <tbody>
-    <tr>
-      <td><%= @project.name %></td>
-      <td><%= @project.billing_destination_email %></td>
-      <td><%= @project.billing_destination_manager %></td>
-      <td><%= @project.budget %>万円</td>
-    </tr>
-  </tbody>
-</table>
+          <% if @employees.length > 0 %>
 
-<%= Project.human_attribute_name :schedule %>
-<p>
-<%= @project.schedule %>
-</p>
+            <h2 class="my-5 text-center">社員</h2>
 
-<% if @employees.length > 0 %>
+            <table class="table table-hover">
+              <thead class="thead-light">
+                <tr>
+                  <th><%= User.human_attribute_name :name %></th>
+                  <th><%= Contract.human_attribute_name :role %></th>
+                  <th>期間</th>
+                  <th><%= Contract.human_attribute_name :under_contract %></th>
+                  <th><%= Contract.human_attribute_name :daily_reports_required %></th>
+                  <th colspan="3"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @employees.each do |employee| %>
+                  <tr style="cursor: hand; cursor:pointer;", onclick="window.location = './<%= @project.id %>/users/<%= employee.user_id %>'">
+                    <td><%= employee.name %></td>
+                    <td><%= employee.role %></td>
+                    <td><%= employee.start_at %>～<%= employee.end_at %></td>
+                    <td><%= employee.under_contract ? "在籍中" : "退職済" %></td>
+                    <td><%= employee.daily_reports_required ? "要" : "不要" %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
 
-  <h2>従業員</h2>
-  <table class="table">
-    <thead>
-      <tr>
-        <th><%= User.human_attribute_name :name %></th>
-        <th><%= Contract.human_attribute_name :role %></th>
-        <th>期間</th>
-        <th><%= Contract.human_attribute_name :under_contract %></th>
-        <th><%= Contract.human_attribute_name :daily_reports_required %></th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
+          <% end %>
 
-    <tbody>
-      <% @employees.each do |employee| %>
-        <tr style="cursor: hand; cursor:pointer;", onclick="window.location = './<%= @project.id %>/users/<%= employee.user_id %>'">
-          <td><%= employee.name %></td>
-          <td><%= employee.role %></td>
-          <td><%= employee.start_at %>～<%= employee.end_at %></td>
-          <td><%= employee.under_contract ? "在籍中" : "退職済" %></td>
-          <td><%= employee.daily_reports_required ? "要" : "不要" %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+          <% if @not_employees.length > 0 %>
 
-<% end %>
+            <h2 class="my-5 text-center">社外メンバー</h2>
 
-<% if @not_employees.length > 0 %>
+            <table class="table table-hover">
+              <thead class="thead-light">
+                <tr>
+                  <th><%= User.human_attribute_name :name %></th>
+                  <th><%= Contract.human_attribute_name :role %></th>
+                  <th><%= Contract.human_attribute_name :wage %></th>
+                  <th><%= Contract.human_attribute_name :hours_per_month %></th>
+                  <th>期間</th>
+                  <th><%= Contract.human_attribute_name :under_contract %></th>
+                  <th><%= Contract.human_attribute_name :daily_reports_required %></th>
+                  <th colspan="3"></th>
+                </tr>
+              </thead>
 
-  <h2>社外メンバー</h2>
-  <table class="table">
-    <thead>
-      <tr>
-        <th><%= User.human_attribute_name :name %></th>
-        <th><%= Contract.human_attribute_name :role %></th>
-        <th><%= Contract.human_attribute_name :wage %></th>
-        <th><%= Contract.human_attribute_name :hours_per_month %></th>
-        <th>期間</th>
-        <th><%= Contract.human_attribute_name :under_contract %></th>
-        <th><%= Contract.human_attribute_name :daily_reports_required %></th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
+              <tbody>
+                <% @not_employees.each do |user| %>
+                  <tr style="cursor: hand; cursor:pointer;", onclick="window.location = './<%= @project.id %>/users/<%= user.user_id %>'">
+                    <td><%= user.name %></td>
+                    <td><%= user.role %></td>
+                    <td><%= user.wage %>円/<%= user.wage_per %></td>
+                    <td><%= user.hours_per_month %>時間</td>
+                    <td><%= user.start_at %>～<%= user.end_at %></td>
+                    <td><%= user.under_contract ? "在籍中" : "退職済" %></td>
+                    <td><%= user.daily_reports_required ? "要" : "不要" %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          <% end %>
 
-    <tbody>
-      <% @not_employees.each do |user| %>
-        <tr style="cursor: hand; cursor:pointer;", onclick="window.location = './<%= @project.id %>/users/<%= user.user_id %>'">
-          <td><%= user.name %></td>
-          <td><%= user.role %></td>
-          <td><%= user.wage %>円/<%= user.wage_per %></td>
-          <td><%= user.hours_per_month %>時間</td>
-          <td><%= user.start_at %>～<%= user.end_at %></td>
-          <td><%= user.under_contract ? "在籍中" : "退職済" %></td>
-          <td><%= user.daily_reports_required ? "要" : "不要" %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-
-<% end %>
-
-
-<%= link_to t('helpers.links.back'), company_projects_path(@company) %>
+          <%= link_to t('helpers.links.back'), company_projects_path(@company), class:"btn btn-secondary my-5" %>
+        </div>
+    </div>
+</div>
