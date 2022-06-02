@@ -3,7 +3,7 @@
         <div class="col-md-10 col-lg-8 col-xl-11 mx-auto">
             <div class="row mt-4 align-items-center">
               <div class="col-3"><h1><%= t('.title') %></h1></div>
-              <div class="col-3"><%= link_to "新規アサイン", assign_company_path(@company), class:"btn btn-primary btn-sm my-5"%></div>
+              <div class="col-3"><%= link_to "新規アサイン", assign_company_path(@company), class:"btn btn-primary text-white btn-sm my-5"%></div>
             </div>
 
           <table class="table">
@@ -96,7 +96,7 @@
             </table>
           <% end %>
 
-          <%= link_to t('helpers.links.back'), company_projects_path(@company), class:"btn btn-secondary my-5" %>
+          <%= link_to t('helpers.links.back'), company_projects_path(@company), class:"btn btn-outline-secondary text-black my-5" %>
         </div>
     </div>
 </div>

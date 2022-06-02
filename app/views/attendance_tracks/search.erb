@@ -12,7 +12,7 @@
                             <% @results.each do |track| %>
                             <tr>
                                 <td><%= track.time %></td>
-                                <td><%= link_to t('helpers.links.edit'), edit_user_project_attendance_track_path(@user_project, track), class:"btn btn-sm btn-primary text-white" %></td>
+                                <td><%= link_to t('helpers.links.edit'), edit_user_project_attendance_track_path(@user_project, track), class:"btn btn-sm btn-primary text-white text-white" %></td>
                                 <td><%= link_to t('helpers.links.destroy'), user_project_attendance_track_path(@user_project, track), method: :delete, data: { confirm: t('common.confirm_destroy') }, class:"btn btn-sm btn-outline-danger" %></td>
                             </tr>
                             <% end %>

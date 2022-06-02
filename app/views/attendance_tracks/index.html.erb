@@ -4,7 +4,7 @@
             <div class="row mt-4 align-items-center">
               <div class="mx-4"><h1><%= t('.title') %></h1></div>
               <div class="dropdown mx-4">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="btn btn-secondary text-white dropdown-toggle" type="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                 <% p @user_project %>
                 <%= @user_project.project.name %>
                 </button>
@@ -54,7 +54,7 @@
                                         <%= search_form_for @q, url: search_user_project_attendance_tracks_path(@user_project) do |f| %>
                                             <%= f.hidden_field :start_at_gteq, :value => tracks.second.first.start_at_ja.beginning_of_day %>
                                             <%= f.hidden_field :start_at_lteq, :value => tracks.second.first.start_at_ja.end_of_day %>
-                                            <%= f.submit '打刻修正', class:"btn btn-primary" %>
+                                            <%= f.submit '打刻修正', class:"btn btn-primary text-white" %>
                                         <% end %>
                                         </td>
                                     </tr>
