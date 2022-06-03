@@ -1,34 +1,51 @@
-<div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-  <%= @user_project.project.name %>
-  </button>
+<section class="vh-100">
+  <div class="container py-5 h-100">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-12 col-lg-9 col-xl-7">
+        <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+          <div class="card-body p-4 p-md-5">
 
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-    <% @user_projects.each do |user_project| %>
-        <% if @user_project.did_enter_finish then %>
-            <%# turbolinksを切らないとリンク先に移動した後ドロップダウンが開かなくなる %>
-            <li><a class="dropdown-item" href="../../<%= user_project.id %>/attendance_tracks/top" data-turbolinks="false"><%= user_project.project.name %></a></li>
-        <% else %>
-            <li><a class="dropdown-item" data-turbolinks="false" onclick="alert('勤務を終了してください')"><%= user_project.project.name %></a></li>
-        <% end %>
-    <% end %>
-  </ul>
-</div>
+            <%# Dropdown %>
+            <div class="dropdown mb-4 pb-2 pb-md-0 mb-md-5 text-center">
+                <button class="btn btn-secondary text-white dropdown-toggle" type="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                <%= @user_project.project.name %>
+                </button>
 
-<p id="notice"><%= notice %></p>
+                <ul class="dropdown-menu text-center" aria-labelledby="dropdownMenuLink">
+                    <% @user_projects.each do |user_project| %>
+                        <% if @user_project.did_enter_finish then %>
+                            <%# turbolinksを切らないとリンク先に移動した後ドロップダウンが開かなくなる %>
+                            <li><a class="dropdown-item" href="../../<%= user_project.id %>/attendance_tracks/top" data-turbolinks="false"><%= user_project.project.name %></a></li>
+                        <% else %>
+                            <li><a class="dropdown-item" data-turbolinks="false" onclick="alert('勤務を終了してください')"><%= user_project.project.name %></a></li>
+                        <% end %>
+                    <% end %>
+                </ul>
+            </div>
 
-<h1 class="row">
-    <div id="hour" class="col-1"></div>:<div id="min" class="col-1"></div>:<small id="sec"></small>
-</h1>
+            <%# Timer %>
+            <div class="text-center">
+                <div id="hour" class="d-inline p-2 display-2"></div><h1 class="d-inline">:</h1>
+                <div id="min" class="d-inline p-2 display-2"></div><h1 class="d-inline">:</h1>
+                <div id="sec" class="d-inline p-2 display-4"></div>
+            </div>
 
-<div class="row">
-    <%= button_to "開始", register_start_at_user_project_attendance_tracks_url, { disabled: !@attendance_track.id.nil? } %>
-    <% if (@attendance_track.id.nil?) %>
-        <%= button_to "終了", register_start_at_user_project_attendance_tracks_url, disabled: true %>
-    <% else %>
-        <%= button_to "終了", register_end_at_user_project_attendance_track_url(@user_project, @attendance_track), { method: :put, disabled: false } %>
-    <% end %>
-</div>
+            <%# Buttons %>
+            <div class="d-flex flex-row justify-content-center my-5">
+                <% if (@attendance_track.id.nil?) %>
+                    <%= button_to "開始", register_start_at_user_project_attendance_tracks_url, { disabled: false, class:"btn btn-outline-primary btn-lg mx-4" } %>
+                    <%= button_to "終了", register_start_at_user_project_attendance_tracks_url, { disabled: true, class:"btn btn-secondary text-white btn-lg mx-4" } %>
+                <% else %>
+                    <%= button_to "開始", register_start_at_user_project_attendance_tracks_url, { disabled: true, class:"btn btn-secondary text-white btn-lg mx-4" } %>
+                    <%= button_to "終了", register_end_at_user_project_attendance_track_url(@user_project, @attendance_track), { method: :put, disabled: false, class:"btn btn-outline-primary btn-lg mx-4" } %>
+                <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <script src="/packs/js/timer.js"></script>
 <script type="text/javascript">

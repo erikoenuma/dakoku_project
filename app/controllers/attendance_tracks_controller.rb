@@ -29,7 +29,7 @@ class AttendanceTracksController < ApplicationController
 
     respond_to do |format|
       if @attendance_track.save
-        flash[:notice] = t('.success')
+        flash[:success] = t('.success')
         format.html { redirect_to search_user_project_attendance_tracks_url(@user_project) }
       else
         flash[:alert] = t('.failure')
@@ -44,7 +44,7 @@ class AttendanceTracksController < ApplicationController
   def update
     respond_to do |format|
       if @attendance_track.update(attendance_track_params)
-        flash[:notice] = t('.success')
+        flash[:success] = t('.success')
         format.html { redirect_to search_user_project_attendance_tracks_url(@user_project) }
       else
         flash[:alert] = t('.failure')
@@ -58,7 +58,7 @@ class AttendanceTracksController < ApplicationController
     @attendance_track.destroy
 
     respond_to do |format|
-      flash[:notice] = t('.success')
+      flash[:success] = t('.success')
       format.html { redirect_back(fallback_location: root_path) }
     end
   end
@@ -78,14 +78,16 @@ class AttendanceTracksController < ApplicationController
   def register_start_at
     @user_project = UserProject.find(params[:user_project_id])
     # タイムゾーンを日本に統一したいのでTime.currentを使用
-    # to_s(:db)を付けてUTCにして、DBに入る形と同じにしている　ミリ秒は保存されない
+    # to_s(:db)を付けてUTCにして、DBに入る形と同じにしている　秒は保存されない
     @attendance_track = @user_project.attendance_tracks.new(start_at: Time.now.to_s(:db))
 
     respond_to do |format|
       if @attendance_track.save
-        format.html { redirect_to top_user_project_attendance_tracks_url, notice: "開始時間を打刻しました" }
+        flash[:success] = t('.success')
+        format.html { redirect_to top_user_project_attendance_tracks_url }
       else
-        format.html { render :top, status: :unprocessable_entity }
+        flash[:danger] = t('.failure')
+        format.html { render :top, status: :unprocessable_entityS }
       end
     end
   end
@@ -94,20 +96,15 @@ class AttendanceTracksController < ApplicationController
   def register_end_at
     respond_to do |format|
       if @attendance_track.update(end_at: Time.now.to_s(:db))
-        format.html { redirect_to top_user_project_attendance_tracks_url, notice: "終了時間を打刻しました"}
+        flash[:success] = t('.success')
+        format.html { redirect_to top_user_project_attendance_tracks_url}
       else
-        format.html { render :top, status: :unprocessable_entity }
+        flash[:danger] = t('.failure')
+        format.html { render :top, status: :unprocessable_entity}
       end
     end
   end
 
-  def register_end_at_and_move(to)
-    respond_to do |format|
-      if @attendance_track.update(end_at: Time.current.to_s(:db))
-        format.html { redirect_to to }
-      end
-    end
-  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

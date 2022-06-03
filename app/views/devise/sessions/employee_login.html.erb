@@ -1,33 +1,49 @@
-<h2>従業者ログイン</h2>
-<p id="notice"><%= notice %></p>
-<p id="alert"><%= alert %></p>
+<section class="vh-100">
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-md-9 col-lg-6 col-xl-5">
+        <img src="https://img.freepik.com/free-vector/company-concept-illustration_114360-2581.jpg?t=st=1654057443~exp=1654058043~hmac=9d933877c8d632c7b27d7f2e54047ad47912316477d8e04158be2582184416f5&w=740"
+          class="img-fluid" alt="Sample image">
+      </div>
+      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+        <%= form_for(@user, url: users_create_employee_session_path) do |f| %>
+          <%= render "devise/shared/error_messages", resource: resource %>
 
-<%= form_for(@user, url: users_create_employee_session_path) do |f| %>
-    <%= render "devise/shared/error_messages", resource: resource %>
+          <div class="divider d-flex align-items-center my-4">
+              <h4 class="text-center fw-bold mx-3 mb-0">従業者ログイン</h4>
+          </div>
 
-    <div class="field">
-        <%= f.label "企業ID" %><br />
-        <%= f.text_field :company, autofocus: true, autocomplete: "company", required: true %>
+          <div class="form-outline mb-3">
+            <%= f.number_field :company, id:"form3Example3", class:"form-control", autofocus: true, autocomplete: "company", placeholder:"企業ID", required: true %>
+          </div>
+
+          <div class="form-outline mb-3">
+            <%= f.email_field :email, id:"form3Example3", class:"form-control", autofocus: true, autocomplete: "email", placeholder:"メールアドレス", required: true, maxlength:"255" %>
+          </div>
+
+          <div class="form-outline mb-3">
+            <%= f.password_field :password, id:"form3Example4", class:"form-control", autocomplete: "current-password", placeholder:"パスワード", required: true, maxlength:"255",minlength: "6"%>
+          </div>
+
+          <% if devise_mapping.rememberable? %>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="form-check mb-0">
+                <%= f.check_box :remember_me, class:"form-check-input me-2", id:"form2Example33" %>
+                <%= f.label :remember_me, class:"form-check-label", for:"form2Example33" %>
+              </div>
+              <%= link_to "パスワード再発行", new_password_path(resource_name) %><br />
+            </div>
+          <% end %>
+
+          <div class="text-center text-lg-start mt-4 pt-2">
+            <%= f.submit "ログイン", class:"btn btn-primary text-white btn-lg", style:"padding-left: 2.5rem; padding-right: 2.5rem;" %>
+            <p class="small fw-bold mt-2 pt-1 mb-0">
+            <%= link_to "管理者の方はこちら", companies_admin_login_path %></p>
+          </div>
+        <% end %>
+      </div>
     </div>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", required: true, maxlength:"255" %>
   </div>
+</section>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" , required: true, maxlength:"255",minlength: "6" %>
-  </div>
-
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
-    </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "ログイン" %>
-  </div>
-<% end %>
+<link href="login.scss" rel="stylesheet">

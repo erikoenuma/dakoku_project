@@ -1,47 +1,67 @@
-<h1><%= t ('.title') %></h1>
+<section class="vh-100">
+  <div class="container py-5 h-100">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-12 col-lg-9 col-xl-7">
+        <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5"><%= t ('.title') %></h3>
+              <%= form_for(@project, url: company_projects_path(@company), local: true) do |form| %>
+                <div class="row">
+                  <div class="col-md-6 mb-4">
+                      <div class="form-outline">
+                        <label><%= form.label :name %></label>
+                        <%= form.text_field :name, class:"form-control", required:true, maxlength:"255" %>
+                      </div>
+                  </div>
+                  <div class="col-md-6 mb-4">
+                      <div class="form-outline">
+                        <label><%= form.label :budget %></label>
+                        <div class="d-flex flex-row align-items-center">
+                          <%= form.number_field :budget, class:"form-control" %>
+                          <span>万</span>
+                          <span>円</span>
+                        </div>
+                      </div>
+                  </div>
+                </div>
 
-<%= form_with(model: @project, url: company_projects_path(@company), local: true) do |form| %>
-  <% if @project.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h2>
+                <div class="row">
+                  <div class="col-md-6 mb-4">
+                      <div class="form-outline">
+                        <label><%= form.label :billing_destination_email %></label>
+                        <%= form.text_field :billing_destination_email, class:"form-control", maxlength:"255" %>
+                      </div>
+                  </div>
 
-      <ul>
-        <% @project.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+                  <div class="col-md-6 mb-4">
+                      <div class="form-outline">
+                        <label><%= form.label :billing_destination_manager %></label>
+                        <%= form.text_field :billing_destination_manager, class:"form-control", maxlength:"255" %>
+                      </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12 mb-4">
+                        <div class="form-outline">
+                          <label><%= form.label :schedule %></label>
+                          <%= form.text_area :schedule, class:"form-control", placeholder: "リリース日、当面の計画などをメモできます" %>
+                        </div>
+                  </div>
+                </div>
+                
+                <div class="row justify-content-center">
+                  <div class="mt-4 pt-2 mx-2">
+                    <%= link_to t('helpers.links.back'), company_projects_path(@company), class:"btn btn-outline-light btn-lg" %>
+                  </div>
+                  <div class="mt-4 pt-2 mx-2">
+                    <%= form.submit "作成", class:"btn btn-primary text-white btn-lg" %>
+                  </div>
+                <div>
+              <% end %>
+          </div>
+        </div>
+      </div>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name, required: true, maxlength:"255" %>
   </div>
-
-  <div class="field">
-    <%= form.label :billing_destination_email %>
-    <%= form.text_field :billing_destination_email, maxlength:"255" %>
-  </div>
-
-  <div class="field">
-    <%= form.label :billing_destination_manager %>
-    <%= form.text_field :billing_destination_manager, maxlength:"255" %>
-  </div>
-
-  <div class="field">
-    <%= form.label :budget %>
-    <%= form.number_field :budget %>
-  </div>
-
-  <div class="field">
-    <%= form.label :schedule %>
-    <%= form.text_field :schedule %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
-
-
-<%= link_to t('helpers.links.back'), company_projects_path(@company) %>
+</section>

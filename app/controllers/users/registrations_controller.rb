@@ -12,8 +12,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # 従業員追加
   def create_employee
-    generated_password = Devise.friendly_token.first(8)
     @company = Company.find(params[:id])
+
+    if !User.where(email: params[:user][:email]).empty?
+      flash[:danger] = "メールアドレスは既に登録されています"
+      redirect_to companies_new_employee_path(@company)
+      return
+    end
+
+    generated_password = Devise.friendly_token.first(8)
     # パスワードを自動作成
     @user = @company.users.create!(:name => params[:user][:name], :email => params[:user][:email], :password => generated_password)
     # 権限作成
@@ -23,7 +30,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     
     respond_to do |format|
       if @user.save
-        set_flash_message! :notice, :employee_created
+        set_flash_message! :success, :employee_created
         format.html { redirect_to companies_users_url(@company) }
       else 
         format.html { redirect_to companies_new_employee_path(@company), status: :unprocessable_entity }
@@ -36,7 +43,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @company = Company.find(params[:company_id])
     @user = @company.users.find(params[:id])
     @user.destroy
-    set_flash_message! :notice, :employee_destroyed
+    set_flash_message! :success, :employee_destroyed
     respond_with_navigational(resource){ redirect_to companies_users_url(@company) }
   end
 
@@ -51,7 +58,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to companies_users_url(@company) }
-        set_flash_message! :notice, :updated
+        set_flash_message! :success, :updated
       else
         format.html { redirect_to companies_edit_employee_path(@company, @user), status: :unprocessable_entity }
       end
@@ -114,7 +121,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # The path used after sign up.
   def after_sign_up_path_for(resource)
-    super(resource)
+    user_custom_projects_path(current_user)
   end
 
   # update後のパスを変更

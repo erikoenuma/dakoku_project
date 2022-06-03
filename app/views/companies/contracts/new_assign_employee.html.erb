@@ -1,36 +1,74 @@
-<h1><%= t('.title') %></h1>
-<p id="notice"><%= notice %></p>
-<p id="alert"><%= alert %></p>
+<section class="vh-100">
+  <div class="container py-5 h-100">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-12 col-lg-9 col-xl-7">
+        <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5"><%= t('.title') %></h3>
+              <%= form_with(model: @contract, url: create_employee_assignment_company_contracts_url(@company, @project), local: true) do |form| %>
 
-<%= form_with(model: @contract, url: create_employee_assignment_company_contracts_url(@company, @project), local: true) do |form| %>
+                <div class="row">
+                  <div class="col-12">
+                    <p class="mb-2"><%= form.label "名前" %></p>
+                    <select class="custom-select custom-select-sm mb-3", name="user_id">
+                      <% @company.users.each do |user| %>
+                        <option value=<%= user.id %>><%= user.name %></option>
+                      <% end %>
+                    </select>
+                  </div>
+                </div>
 
-  <div class="field">
-    <%= form.label "名前" %>
-    <%= form.collection_select :user, @company.users.all, :id, :name %>
+                <div class="row">
+                  <div class="col-md-6 mb-4">
+                      <div class="form-outline">
+                        <label><%= form.label :start_at %></label>
+                        <%= form.date_field :start_at, class:"form-control", required: true %>
+                      </div>
+                  </div>
+                  <div class="col-md-6 mb-4">
+                      <div class="form-outline">
+                        <label><%= form.label :end_at %></label>
+                        <%= form.date_field :end_at, class:"form-control", include_blank: "" %>
+                      </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 mb-4">
+                      <div class="form-outline">
+                        <label><%= form.label :role %></label>
+                        <%= form.text_field :role, class:"form-control", required: true, maxlength:"255" %>
+                      </div>
+                  </div>
+                  <div class="col-md-6 mb-4">
+                    <div class="form-outline">
+                      <%= form.label :daily_reports_required, class:"mb-2 pb-1" %>  
+                      <div class="custom-control custom-radio custom-control-inline">  
+                        <input class="custom-control-input" type="radio" name="daily_reports_required" id="required"
+                          value="true"/>
+                        <label class="custom-control-label" for="required">要</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                          <input class="custom-control-input" type="radio" name="daily_reports_required" id="not_required"
+                          value="false" checked/>
+                          <label class="custom-control-label" for="not_required">不要</label>
+                      </div>       
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="row justify-content-center">
+                  <div class="mt-4 pt-2 mx-2">
+                    <%= link_to t('helpers.links.back'), assign_company_path(@company), class:"btn btn-outline-secondary text-black btn-lg" %>
+                  </div>
+                  <div class="mt-4 pt-2 mx-2">
+                    <%= form.submit "決定", class:"btn btn-primary text-white btn-lg" %>
+                  </div>
+                <div>
+              <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="field">
-    <%= form.label :start_at %>
-    <%= form.date_select :start_at, required: true %>
-  </div>
-
-  <div class="field">
-    <%= form.label :end_at %>
-    <%= form.date_select :end_at, include_blank:"" %>
-  </div>
-
-  <div class="field">
-    <%= form.label :role %>
-    <%= form.text_field :role, required: true, maxlength:"255"%>
-  </div>
-
-  <div class="field">
-    <%= form.label :daily_reports_required %>
-    <%= form.radio_button :daily_reports_required, true %>要
-    <%= form.radio_button :daily_reports_required, false %>不要
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</section>

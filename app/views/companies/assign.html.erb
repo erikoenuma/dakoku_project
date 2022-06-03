@@ -1,33 +1,54 @@
-<h1>新規アサイン</h1>
+<section class="vh-100">
+  <div class="container py-5 h-100">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-12 col-lg-9 col-xl-7">
+        <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5"><%= t('.title') %></h3>
+              <%= form_with(model: @user_project, url: validate_employee_company_url(@company), method: 'GET', local: true) do |form| %>
 
-<%= form_with(model: @user_project, url: validate_employee_company_url(@company), method: 'GET', local: true) do |form| %>
-  <% if @user_project.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user_project.errors.count, "error") %> prohibited this project from being saved:</h2>
+                <div class="row">
+                  <div class="col-12">
+                    <p class="mb-2">案件名</p>
+                    <select class="custom-select custom-select-sm mb-3", name="project_id">
+                      <% @projects.each do |project| %>
+                        <option value=<%= project.id %>><%= project.name %></option>
+                      <% end %>
+                    </select>
+                  </div>
+                </div>
 
-      <ul>
-        <% @user_project.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+                <div class="row">
+
+                  <div class="col-md-6 mb-4">
+                    <div class="form-outline">
+                      <%= form.label "雇用形態", class:"mb-2 pb-1" %>  
+                      <div class="custom-control custom-radio custom-control-inline">  
+                        <input class="custom-control-input" type="radio" name="employee" id="employee"
+                          value="true" checked/>
+                        <label class="custom-control-label" for="employee">社員</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                          <input class="custom-control-input" type="radio" name="employee" id="not_employee"
+                          value="false" />
+                          <label class="custom-control-label" for="not_employee">社員以外</label>
+                      </div>       
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="row justify-content-center">
+                  <div class="mt-4 pt-2 mx-2">
+                    <%= link_to t('helpers.links.back'), company_project_path(@company), class:"btn btn-outline-secondary text-black btn-lg" %>
+                  </div>
+                  <div class="mt-4 pt-2 mx-2">
+                    <%= form.submit "次へ", class:"btn btn-primary text-white btn-lg" %>
+                  </div>
+                <div>
+              <% end %>
+          </div>
+        </div>
+      </div>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label "案件名" %>
-    <%= form.collection_select :project_id, @projects.all, :id, :name %>
   </div>
-
-  <div class="field">
-    <%= form.label "雇用形態" %>
-    <div>
-        <%= form.radio_button :employee, true, checked: true %>社員
-        <%= form.radio_button :employee, false %>社員以外
-    </div>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-
-<% end %>
+</section>

@@ -20,20 +20,20 @@ class Companies::ContractsController < ApplicationController
     @company = Company.find(params[:company_id])
     @project = @company.projects.find(params[:id])
 
-    if @project.user_ids.include?(Integer(params[:contract][:user]))
+    if @project.user_ids.include?(Integer(params[:user_id]))
       flash[:alert] = "そのユーザーは既にアサインされています"
       redirect_to new_assign_employee_company_contracts_path(@company, @project)
       return
     end
-    @user_project = UserProject.find_or_create_by(project_id: params[:id], user_id: params[:contract][:user])
-    @contract = Contract.create(contract_params)
-    @user_project.contract = @contract
-    puts @contract
+    @user_project = UserProject.find_or_create_by(project_id: params[:id], user_id: params[:user_id])
+    @contract = @user_project.build_contract(contract_params)
 
     respond_to do |format|
       if @contract.save
-        format.html { redirect_to company_project_url(@company, @project), notice: t('.create.success') }
+        flash[:success] = t('.create.success')
+        format.html { redirect_to company_project_url(@company, @project) }
       else
+        flash[:success] = t('.create.failure')
         format.html { redirect_to new_assign_employee_company_contracts_path(@company, @project), status: :unprocessable_entity }
       end  
     end  
@@ -53,13 +53,14 @@ class Companies::ContractsController < ApplicationController
     else 
 
       @user_project = UserProject.find_or_create_by(project_id: params[:id], user_id: @user.id)
-      @contract = Contract.create(contract_params)
-      @user_project.contract = @contract
+      @contract = @user_project.build_contract(contract_params)
 
       respond_to do |format|
         if @contract.save
-          format.html { redirect_to company_project_url(@company, @project), notice: t('.create.success') }
+          flash[:success] = t('.create.success')
+          format.html { redirect_to company_project_url(@company, @project) }
         else
+          flash[:danger] = t('.create.failure')
           format.html { redirect_to new_assign_not_employee_company_contracts_path(@company, @project), status: :unprocessable_entity }
         end  
       end    
@@ -69,8 +70,10 @@ class Companies::ContractsController < ApplicationController
   # PATCH/PUT /contracts/1
   def update
     if @contract.update(contract_params)
-      redirect_to @contract, notice: 'Contract was successfully updated.'
+      flash[:success] = t('.success')
+      redirect_to @contract
     else
+      flash[:danger] = t('.failure')
       render :edit
     end
   end

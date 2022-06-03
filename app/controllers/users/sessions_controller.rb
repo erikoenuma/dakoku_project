@@ -8,21 +8,31 @@ class Users::SessionsController < Devise::SessionsController
   def create_admin_session
     if isAdmin
       sign_in(@user, scope: :user)
-      set_flash_message!(:notice, :signed_in)
+      set_flash_message!(:success, :signed_in)
       respond_with @user, location: companies_users_url(params[:user][:company])
     else
-      redirect_to companies_employee_login_path, alert: "管理者権限がありません"
+      flash[:danger] = "管理者権限がありません"
+      redirect_to companies_employee_login_path
     end 
   end
 
   # 従業者ログイン
   def create_employee_session
       if isEmployee_of(params[:user][:company])
+
+        # 案件にまだアサインされていないときはログインしない
+        if @user.user_projects.empty?
+          flash[:danger] = "案件にアサインされてから再度ログインしてください"
+          redirect_to companies_employee_login_path
+          return
+        end
+
         sign_in(@user, scope: :user)
-        set_flash_message!(:notice, :signed_in)
+        set_flash_message!(:success, :signed_in)
         respond_with @user, location: after_sign_in_path_for(@user)
       else
-        redirect_to companies_employee_login_path, alert: "企業IDが間違っています"
+        flash[:danger] = "企業IDが間違っています"
+        redirect_to companies_employee_login_path
       end 
  
   end
@@ -47,12 +57,12 @@ class Users::SessionsController < Devise::SessionsController
   # POST /resource/sign_in
   def create
     if belongs_to_company
-      flash[:notice] = "このアカウントは企業に管理されています。従業者ログインからログインしてください。"
+      flash[:success] = "このアカウントは企業に管理されています。従業者ログインからログインしてください。"
       redirect_to new_user_session_path
       return
     else 
       self.resource = warden.authenticate!(auth_options)
-      set_flash_message!(:notice, :signed_in)
+      set_flash_message!(:success, :signed_in)
       sign_in(resource_name, resource)
       respond_with resource, location: after_sign_in_path_for(resource)
     end
@@ -80,20 +90,32 @@ class Users::SessionsController < Devise::SessionsController
 
   def after_sign_in_path_for(resource_or_scope)
     @company = current_user.company
-    if current_user.company.nil?
-      user_custom_projects_path(current_user)
-    else 
-        companies_users_path(@company)
-        # FIXME
-      # case current_user.user_company.authority
-      # when "employee" then
-      #   companies_users_path(@company)
-      # when "group_admin" then
-      #   companies_users_path(@company)
-      # when "admin" then
-      #   companies_users_path(@company)
-      # end
+
+    # まだ案件がひとつも無い場合
+    if current_user.user_projects.empty?
+      
+      # 個人アカウントの場合
+      if current_user.company.nil?
+        user_custom_projects_path(current_user)
+      else      
+        # 企業アカウントの場合
+        case current_user.user_company.authority.authority
+        when "group_admin" then
+          company_projects_path(@company)
+        when "admin" then
+          companies_users_path(@company)
+        end
+      end
+    
+    else
+      puts "案件アリ"
+
+      # 打刻画面を表示
+      @user_project = current_user.user_projects.first
+      return top_user_project_attendance_tracks_path(@user_project)
+
     end
+
 
   end
 

@@ -1,26 +1,31 @@
-<h1><%= t('.title') %></h1>
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-11 mx-auto">
+            <div class="container col-md-6">
+                <div class="mt-4 align-items-center">
+                <div><h1><%= @results.first.start_at_ja.month %>月<%= @results.first.start_at_ja.day %>日</h1></div>
+                </div>
 
-<p id="notice"><%= notice %></p>
+                <% if @results.length > 0%>
+                    <table class="table">
+                        <tbody>
+                            <% @results.each do |track| %>
+                            <tr>
+                                <td><%= track.time %></td>
+                                <td><%= link_to t('helpers.links.edit'), edit_user_project_attendance_track_path(@user_project, track), class:"btn btn-sm btn-primary text-white text-white" %></td>
+                                <td><%= link_to t('helpers.links.destroy'), user_project_attendance_track_path(@user_project, track), method: :delete, data: { confirm: t('common.confirm_destroy') }, class:"btn btn-sm btn-outline-danger" %></td>
+                            </tr>
+                            <% end %>
+                        </tbody>
+                    </table>
 
-<% if @results.length > 0%>
-<h2><%= @results.first.start_at_ja.month %>月<%= @results.first.start_at_ja.day %>日</h2>
-<table class="table">
-  <tbody>
-    <% @results.each do |track| %>
-      <tr>
-        <td><%= track.time %></td>
-        <td><%= link_to t('helpers.links.edit'), edit_user_project_attendance_track_path(@user_project, track) %></td>
-        <td><%= link_to t('helpers.links.destroy'), user_project_attendance_track_path(@user_project, track), method: :delete, data: { confirm: t('common.confirm_destroy') } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+                <% else %>
+                    <p class="my-5">この日の実績はありません。</p>
+                <% end %>
 
-<% else %>
-<p>この日の実績はありません。</p>
-
-<% end %>
-
-
-<%= link_to t('helpers.links.back'), user_project_attendance_tracks_path(@user_project) %>
+                <%= link_to t('helpers.links.back'), user_project_attendance_tracks_path(@user_project), class:"btn btn-outline-secondary text-black my-5" %>
+            </div>
+        </div>
+    </div>
+</div>
 

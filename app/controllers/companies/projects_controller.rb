@@ -35,8 +35,10 @@ class Companies::ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-        format.html { redirect_to company_projects_url(@company), notice: "Project was successfully created." }
+        flash[:success] = t('.success')
+        format.html { redirect_to company_projects_url(@company) }
       else
+        flash[:danger] = t('.failure')
         format.html { render :new, status: :unprocessable_entity }
       end
     end
@@ -46,8 +48,10 @@ class Companies::ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to company_projects_url(@company), notice: "Project was successfully updated." }
+        flash[:success] = t('.success')
+        format.html { redirect_to company_projects_url(@company) }
       else
+        flash[:danger] = t('.failure')
         format.html { render :edit, status: :unprocessable_entity }
       end
     end
@@ -58,7 +62,8 @@ class Companies::ProjectsController < ApplicationController
     @project.destroy
 
     respond_to do |format|
-      format.html { redirect_to company_projects_url(@company), notice: "Project was successfully destroyed." }
+      flash[:success] = t('.success')
+      format.html { redirect_to company_projects_url(@company) }
     end
   end
   
