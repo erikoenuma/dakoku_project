@@ -29,7 +29,7 @@ class AttendanceTracksController < ApplicationController
 
     respond_to do |format|
       if @attendance_track.save
-        flash[:notice] = t('.success')
+        flash[:success] = t('.success')
         format.html { redirect_to search_user_project_attendance_tracks_url(@user_project) }
       else
         flash[:alert] = t('.failure')
@@ -44,7 +44,7 @@ class AttendanceTracksController < ApplicationController
   def update
     respond_to do |format|
       if @attendance_track.update(attendance_track_params)
-        flash[:notice] = t('.success')
+        flash[:success] = t('.success')
         format.html { redirect_to search_user_project_attendance_tracks_url(@user_project) }
       else
         flash[:alert] = t('.failure')
@@ -58,7 +58,7 @@ class AttendanceTracksController < ApplicationController
     @attendance_track.destroy
 
     respond_to do |format|
-      flash[:notice] = t('.success')
+      flash[:success] = t('.success')
       format.html { redirect_back(fallback_location: root_path) }
     end
   end
@@ -83,9 +83,11 @@ class AttendanceTracksController < ApplicationController
 
     respond_to do |format|
       if @attendance_track.save
-        format.html { redirect_to top_user_project_attendance_tracks_url, notice: t('.success') }
+        flash[:success] = t('.success')
+        format.html { redirect_to top_user_project_attendance_tracks_url }
       else
-        format.html { render :top, status: :unprocessable_entity, t('.failure') }
+        flash[:danger] = t('.failure')
+        format.html { render :top, status: :unprocessable_entityS }
       end
     end
   end
@@ -94,9 +96,11 @@ class AttendanceTracksController < ApplicationController
   def register_end_at
     respond_to do |format|
       if @attendance_track.update(end_at: Time.now.to_s(:db))
-        format.html { redirect_to top_user_project_attendance_tracks_url, notice: t('.success')}
+        flash[:success] = t('.success')
+        format.html { redirect_to top_user_project_attendance_tracks_url}
       else
-        format.html { render :top, status: :unprocessable_entity, alert: t('.failure')}
+        flash[:danger] = t('.failure')
+        format.html { render :top, status: :unprocessable_entity}
       end
     end
   end

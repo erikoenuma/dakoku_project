@@ -94,7 +94,7 @@ Devise.setup do |config|
 
   # By default Devise will store the user in session. You can skip storage for
   # particular strategies by setting this option.
-  # Notice that if you are skipping storage for all authentication paths, you
+  # success that if you are skipping storage for all authentication paths, you
   # may want to disable generating routes to Devise's sessions controller by
   # passing skip: :sessions to `devise_for` in your config/routes.rb
   config.skip_session_storage = [:http_auth]

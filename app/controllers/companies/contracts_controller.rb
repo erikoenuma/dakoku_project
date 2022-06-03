@@ -30,8 +30,10 @@ class Companies::ContractsController < ApplicationController
 
     respond_to do |format|
       if @contract.save
-        format.html { redirect_to company_project_url(@company, @project), notice: t('.create.success') }
+        flash[:success] = t('.create.success')
+        format.html { redirect_to company_project_url(@company, @project) }
       else
+        flash[:success] = t('.create.failure')
         format.html { redirect_to new_assign_employee_company_contracts_path(@company, @project), status: :unprocessable_entity }
       end  
     end  
@@ -55,8 +57,10 @@ class Companies::ContractsController < ApplicationController
 
       respond_to do |format|
         if @contract.save
-          format.html { redirect_to company_project_url(@company, @project), notice: t('.create.success') }
+          flash[:success] = t('.create.success')
+          format.html { redirect_to company_project_url(@company, @project) }
         else
+          flash[:danger] = t('.create.failure')
           format.html { redirect_to new_assign_not_employee_company_contracts_path(@company, @project), status: :unprocessable_entity }
         end  
       end    
@@ -66,8 +70,10 @@ class Companies::ContractsController < ApplicationController
   # PATCH/PUT /contracts/1
   def update
     if @contract.update(contract_params)
-      redirect_to @contract, notice: t('.success')
+      flash[:success] = t('.success')
+      redirect_to @contract
     else
+      flash[:danger] = t('.failure')
       render :edit
     end
   end

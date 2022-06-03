@@ -6,7 +6,7 @@
           class="img-fluid" alt="Sample image">
       </div>
       <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-        <%= form_for(resource, as: resource_name, url: companies_update_employee_path(@company, resource)) do |f| %>
+        <%= form_for(resource, as: resource_name, url: companies_update_employee_path(@company, resource), method: :put) do |f| %>
           <%= render "devise/shared/error_messages", resource: resource %>
 
           <div class="divider d-flex align-items-center my-4">

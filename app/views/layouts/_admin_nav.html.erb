@@ -4,18 +4,22 @@
     <li class="nav-item">
     <%# 打刻 %>
     <% if current_user.user_projects.empty? %>
-        <a class="nav-link" href="#">打刻</a>
+        <a class="nav-link" href="#" onclick="alert('一つ以上の案件にアサインしてください')">打刻</a>
     <% else %>
         <a class="nav-link" href="/user_projects/<%= current_user.user_projects.first.id %>/attendance_tracks/top" data-turbolinks="false">打刻</a>
     <% end %>
     </li>
     <%# 実績 %>
     <li class="nav-item">
-        <a class="nav-link" href="/user_projects/<%= current_user.user_projects.first.id %>/attendance_tracks" data-turbolinks="false">実績</a>
+        <% if current_user.user_projects.empty? %>
+            <a class="nav-link" href="#" onclick="alert('一つ以上の案件にアサインしてください')">実績</a>
+        <% else %>
+            <a class="nav-link" href="/user_projects/<%= current_user.user_projects.first.id %>/attendance_tracks" data-turbolinks="false">実績</a>
+        <% end %>    
     </li>
     <%# 申請 %>
     <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onclick="alert('準備中です')">
         申請
         </a>
     </li>
