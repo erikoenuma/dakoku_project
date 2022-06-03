@@ -20,5 +20,8 @@ module FreelanceDakoku
     # パスを通す
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
     config.time_zone = 'Tokyo'
+
+    # herokuでdeviseを使うのに必要
+    config.assets.initialize_on_precompile = false
   end
 end
