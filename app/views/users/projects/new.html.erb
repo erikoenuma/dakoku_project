@@ -6,6 +6,8 @@
           <div class="card-body p-4 p-md-5">
             <h3 class="mb-4 pb-2 pb-md-0 mb-md-5"><%= t ('.title') %></h3>
               <%= form_for(@project, url: user_custom_projects_path(current_user), local: true) do |form| %>
+                <%= render 'layouts/errors', object: @project %>
+              
                 <div class="row">
                   <div class="col-md-6 mb-4">
                       <div class="form-outline">
