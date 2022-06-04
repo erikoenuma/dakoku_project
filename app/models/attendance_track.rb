@@ -1,6 +1,14 @@
 class AttendanceTrack < ApplicationRecord
   validates :start_at, presence: true
+  validate :end_at_after_start_at
   belongs_to :user_project
+
+  # 終了時間が開始時間より後になるようにする
+  def end_at_after_start_at
+    unless self.start_at < self.end_at then
+      errors.add(:end_at, "時刻は開始時刻より後の時刻になるようにしてください。")
+    end
+  end
 
   def day
     self.start_at_ja.strftime("%m月%d日")

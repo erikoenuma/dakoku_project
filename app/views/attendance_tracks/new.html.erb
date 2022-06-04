@@ -6,6 +6,7 @@
           <div class="card-body p-4 p-md-5">
             <h3 class="mb-4 pb-2 pb-md-0 mb-md-5"><%= t ('.title') %></h3>
               <%= form_for(@attendance_track, url: user_project_attendance_tracks_path(@user_project), local: true) do |form| %>
+                <%= render 'layouts/errors', object: @attendance_track %>
 
                 <div class="row">
                   <div class="col-md-6 mb-4">

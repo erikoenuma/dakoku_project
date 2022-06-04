@@ -32,7 +32,6 @@ class AttendanceTracksController < ApplicationController
         flash[:success] = t('.success')
         format.html { redirect_to search_user_project_attendance_tracks_url(@user_project) }
       else
-        flash[:alert] = t('.failure')
         format.html { render :edit, status: :unprocessable_entity }
       end
     end
@@ -45,9 +44,8 @@ class AttendanceTracksController < ApplicationController
     respond_to do |format|
       if @attendance_track.update(attendance_track_params)
         flash[:success] = t('.success')
-        format.html { redirect_to search_user_project_attendance_tracks_url(@user_project) }
+        format.html { redirect_to user_project_attendance_tracks_url(@user_project) }
       else
-        flash[:alert] = t('.failure')
         format.html { render :edit, status: :unprocessable_entity }
       end
     end
