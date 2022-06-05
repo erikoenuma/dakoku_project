@@ -46,6 +46,11 @@ ja:
       create:
         success: '案件を作成しました'
         failure: '案件作成に失敗しました'
+      update:
+        success: '案件情報を更新しました'
+        failure: '案件情報の更新に失敗しました'
+      destroy:
+        success: '案件を削除しました'
   companies:
     users:
       title: '従業員一覧'
