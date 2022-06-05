@@ -94,8 +94,8 @@
                 <p class="text-center">まだ実績がありません</p>
 
             <% end %>
-
-            <%= link_to t('helpers.links.back'), :back, class:"btn btn-outline-secondary text-black my-5" %>
+            <%= link_to t('helpers.links.edit'), edit_company_contract_path(@company, @project, @contract), class:"btn btn-outline-secondary text-black my-5" %>
+            <%= link_to t('helpers.links.back'), company_project_path(@company, @project), class:"btn btn-outline-secondary text-black my-5" %>
 
         </div>
     </div>

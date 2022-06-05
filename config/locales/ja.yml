@@ -76,6 +76,8 @@ ja:
         title: '新規アサイン（社員）'
       new_assign_not_employee:
         title: '新規アサイン（社員以外）'
+      edit:
+        title: '契約内容編集'
       create:
         success: '新規アサインに成功しました'
         failure: '新規アサインに失敗しました'

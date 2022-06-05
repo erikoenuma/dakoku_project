@@ -13,6 +13,10 @@ class Companies::ContractsController < ApplicationController
 
   # GET /contracts/1/edit
   def edit
+    @company = Company.find(params[:company_id])
+    @project = @company.projects.find(params[:id])
+    @contract = Contract.find(params[:contract_id])
+    @user = @contract.user_project.user
   end
 
   # 従業員をアサインする
@@ -83,11 +87,15 @@ class Companies::ContractsController < ApplicationController
 
   # PATCH/PUT /contracts/1
   def update
+    @company = Company.find(params[:company_id])
+    @project = @company.projects.find(params[:id])
+    @contract = Contract.find(params[:contract_id])
+    @user = @contract.user_project.user
+
     if @contract.update(contract_params)
       flash[:success] = t('.success')
-      redirect_to @contract
+      redirect_to company_member_path(@company, @project, @user)
     else
-      flash[:danger] = t('.failure')
       render :edit
     end
   end

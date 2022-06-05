@@ -37,7 +37,7 @@ Rails.application.routes.draw do
     scope module: :companies do
       resources :projects do 
         member do
-          resources :contracts do 
+          resources :contracts, only: [:update, :edit], param: :contract_id do 
             collection do
               get 'new_assign_employee'
               get 'new_assign_not_employee'
