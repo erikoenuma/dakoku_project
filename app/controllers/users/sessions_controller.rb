@@ -6,6 +6,14 @@ class Users::SessionsController < Devise::SessionsController
 
   # 管理者ログイン
   def create_admin_session
+
+    @user = User.where(email:params[:user][:email]).first
+    if @user.nil?
+      flash[:danger] = "メールアドレスが間違っています"
+      redirect_to companies_admin_login_path
+      return
+    end
+
     if isAdmin
       sign_in(@user, scope: :user)
       set_flash_message!(:success, :signed_in)
@@ -18,22 +26,29 @@ class Users::SessionsController < Devise::SessionsController
 
   # 従業者ログイン
   def create_employee_session
-      if isEmployee_of(params[:user][:company])
+    @user = User.where(email:params[:user][:email]).first
+    if @user.nil?
+      flash[:danger] = "メールアドレスが間違っています"
+      redirect_to companies_employee_login_path
+      return
+    end
 
-        # 案件にまだアサインされていないときはログインしない
-        if @user.user_projects.empty?
-          flash[:danger] = "案件にアサインされてから再度ログインしてください"
-          redirect_to companies_employee_login_path
-          return
-        end
+    if isEmployee_of(params[:user][:company])
 
-        sign_in(@user, scope: :user)
-        set_flash_message!(:success, :signed_in)
-        respond_with @user, location: after_sign_in_path_for(@user)
-      else
-        flash[:danger] = "企業IDが間違っています"
+      # 案件にまだアサインされていないときはログインしない
+      if @user.user_projects.empty?
+        flash[:danger] = "案件にアサインされてから再度ログインしてください"
         redirect_to companies_employee_login_path
-      end 
+        return
+      end
+
+      sign_in(@user, scope: :user)
+      set_flash_message!(:success, :signed_in)
+      respond_with @user, location: after_sign_in_path_for(@user)
+    else
+      flash[:danger] = "企業IDが間違っています"
+      redirect_to companies_employee_login_path
+    end 
  
   end
 
@@ -56,6 +71,13 @@ class Users::SessionsController < Devise::SessionsController
 
   # POST /resource/sign_in
   def create
+    @user = User.where(email:params[:user][:email]).first
+    if @user.nil?
+      flash[:danger] = "メールアドレスが間違っています"
+      redirect_to new_user_session_path
+      return
+    end
+
     if belongs_to_company
       flash[:success] = "このアカウントは企業に管理されています。従業者ログインからログインしてください。"
       redirect_to new_user_session_path
@@ -115,8 +137,6 @@ class Users::SessionsController < Devise::SessionsController
       return top_user_project_attendance_tracks_path(@user_project)
 
     end
-
-
   end
 
   private
