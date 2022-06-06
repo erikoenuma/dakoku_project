@@ -48,9 +48,27 @@
                 <h2>実績</h2>
                 <h5>（<%= @project.name %>）</h5>
                 <h5><%= @monthly_working_time %></h5>
+                <div class="dropdown mx-4">
+                    <button class="btn btn-secondary text-white dropdown-toggle" type="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                    <%= @date.year %>年<%= @date.month %>月
+                    </button>
+
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <%# 0から始まるので使うときはmonth+1する %>
+                        <% 12.times do |month| %>
+                            <li>
+                            <%= search_form_for @q, url: company_member_path(@company, @project, @user) do |f| %>
+                                <%= f.hidden_field :start_at_gteq, :value => Time.local(2022, month+1).beginning_of_month %>
+                                <%= f.hidden_field :start_at_lteq, :value => Time.local(2022, month+1).end_of_month %>
+                                <%= f.submit "2022年#{month+1}月", class:"dropdown-item", data: {"turbolinks"=>false }  %>
+                            <% end %>
+                            </li>
+                        <% end %>
+                    </ul>      
+                </div>
             </div>
 
-            <% if @monthly_tracks.length > 0 %>
+            <% if @results.length > 0 %>
 
                 <table class="table">
                     <thead class="thead-light">
@@ -62,36 +80,30 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% @monthly_tracks.each do |monthly_track| %>
-                            <%# 最初は月の数字が入ってるのでdrop(1)してattendance_tracksを取得する %>
-                            <% monthly_track.drop(1).each do |daily_tracks| %>
-                                <%# 日付ごとにグループ化する %>
-                                <% daily_tracks.group_by{|p| p.start_at_ja.day}.sort.reverse.each do |tracks| %>
-                                    <tr>
-                                        <%# 日付 %>
-                                        <td><%= monthly_track.first %>月<%= tracks.first %>日</td>
-                                        <td>
-                                            <%# 実績 %>
-                                            <% tracks.second.sort{|a, b| a[:start_at] <=> b[:start_at] }.each do |track| %>
-                                                <%= track.time %><br>
-                                            <% end %>
-                                        </td>
-                                        <td>
-                                            <%# 稼働時間を算出 %>
-                                            <% sum = tracks.second.map{|p| p.duration_minutes }.sum %>
-                                            <%= (sum/60/60).round %>時間<%= (sum/60%60).round %>分
-                                        </td>
-                                        <%# 日報 %>
-                                    </tr>
-                                <% end %>
-                            <% end %>
+                    <% @results.group_by{|p| p.start_at_ja.day}.sort.reverse.each do |result| %>
+                            <tr>
+                                <%# 日付 %>
+                                <td><%= result.second.first.start_at_ja.month %>月<%= result.first %>日</td>
+                                <td>
+                                    <%# 実績 %>
+                                    <%# 開始時間順になるように並び替え %>
+                                    <% result.second.sort{|a, b| a[:start_at] <=> b[:start_at] }.each do |track| %>
+                                        <%= track.time %><br>
+                                    <% end %>
+                                </td>
+                                <td>
+                                    <%# 稼働時間を算出 %>
+                                    <% sum = result.second.map{|p| p.duration_minutes }.sum %>
+                                    <%= (sum/60/60).round %>時間<%= (sum/60%60).round %>分
+                                </td>
+                            </tr>
                         <% end %>
                     </tbody>
                 </table>
 
             <% else %>
 
-                <p class="text-center">まだ実績がありません</p>
+                <p class="text-center">実績がありません</p>
 
             <% end %>
             <%= link_to t('helpers.links.back'), company_project_path(@company, @project), class:"btn btn-outline-secondary text-black my-5" %>

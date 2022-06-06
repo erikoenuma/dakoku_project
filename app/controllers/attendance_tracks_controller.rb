@@ -8,10 +8,18 @@ class AttendanceTracksController < ApplicationController
   def index
     @attendance_tracks = @user_project.attendance_tracks.all
     @user_projects = current_user.user_projects.all
-    @yearly_tracks = @attendance_tracks.group_by{|p| p.start_at_ja.year }
-    if @yearly_tracks != nil && @yearly_tracks.length > 0
-      @monthly_tracks = @yearly_tracks[Time.now.year].group_by{|p| p.start_at_ja.month }
+    if params[:q].nil?
+      # 初期値は現在月
+      @results = @attendance_tracks.where('start_at > ?', Time.current.beginning_of_month)
+      @date = Time.current
+    else
+      puts params[:q]
+      @results = @q.result
+      # 何月を表示しているか
+      @date = Time.parse(params[:q][:start_at_gteq])
+      puts "何月か", @date.year, @date.month, @date
     end
+    
   end
 
   def search
