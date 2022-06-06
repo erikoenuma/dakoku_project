@@ -22,6 +22,7 @@ class AttendanceTracksController < ApplicationController
 
   def search
     @results = @q.result
+    @date = Time.parse(params[:q][:start_at_gteq])
   end
 
   def new
