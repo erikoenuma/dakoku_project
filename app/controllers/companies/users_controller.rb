@@ -17,11 +17,9 @@ class Companies::UsersController < ApplicationController
             @results = @attendance_tracks.where('start_at > ?', Time.current.beginning_of_month)
             @date = Time.current
         else
-            puts params[:q]
             @results = @q.result
             # 何月を表示しているか
             @date = Time.parse(params[:q][:start_at_gteq])
-            puts "何月か", @date.year, @date.month, @date
         end
 
         # 総勤務時間を計算する
