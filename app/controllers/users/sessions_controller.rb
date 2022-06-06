@@ -130,7 +130,6 @@ class Users::SessionsController < Devise::SessionsController
       end
     
     else
-      puts "案件アリ"
 
       # 打刻画面を表示
       @user_project = current_user.user_projects.first

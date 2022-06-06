@@ -5,7 +5,7 @@ class AttendanceTrack < ApplicationRecord
 
   # 終了時間が開始時間より後になるようにする
   def end_at_after_start_at
-    unless self.start_at < self.end_at then
+    if self.end_at != nil && self.start_at > self.end_at then
       errors.add(:end_at, "時刻は開始時刻より後の時刻になるようにしてください。")
     end
   end

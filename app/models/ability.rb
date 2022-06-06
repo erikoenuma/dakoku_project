@@ -20,23 +20,18 @@ class Ability
         cannot :manage, User do |user|
           user.company != nil
         end
-      else 
+      else
         # グループ管理者
         if user.user_company.authority.authority != "employee"
-          can :manage, Project do |project|
-            project.company == user.company
-          end
+          can :manage, Project, company: user.company
           can :read, User
           can [:assign, :validate_employee], Company
           can :manage, Contract
 
           # 管理者
           if user.user_company.authority.authority == "admin"
-            # binding.pr
             can :users, Company
-            can :manage, User do |u|
-              u.company = user.company
-            end
+            can :manage, User, company: user.company
           end
         end
       end
