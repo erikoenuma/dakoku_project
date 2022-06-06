@@ -94,9 +94,9 @@
                 <p class="text-center">まだ実績がありません</p>
 
             <% end %>
-            <%= link_to t('helpers.links.edit'), edit_company_contract_path(@company, @project, @contract), class:"btn btn-outline-secondary text-black my-5" %>
             <%= link_to t('helpers.links.back'), company_project_path(@company, @project), class:"btn btn-outline-secondary text-black my-5" %>
-
+            <%= link_to "契約内容編集", edit_company_contract_path(@company, @project, @contract), class:"btn btn-outline-primary text-black my-5" %>
+            <%= link_to t('helpers.links.destroy'), company_member_path(@company, @project, @user), method: :delete, data: { confirm: "#{@user.name}を#{@project.name}から除外してもよろしいですか？" }, class:"btn btn-outline-danger text-black my-5" %>
         </div>
     </div>
 </div>

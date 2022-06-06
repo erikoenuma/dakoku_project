@@ -26,4 +26,17 @@ class Companies::UsersController < ApplicationController
         end
     end
 
+    def destroy
+        @company = Company.find(params[:company_id])
+        @user = User.find(params[:member])
+        @project = Project.find(params[:id])
+        @user_project = @user.user_projects.where(project_id: params[:id]).first
+
+        @user_project.destroy
+        respond_to do |format|
+            flash[:success] = "メンバーを案件から除外しました"
+            format.html { redirect_to company_project_url(@company, @project) }
+        end
+    end
+
 end
