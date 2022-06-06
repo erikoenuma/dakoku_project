@@ -75,9 +75,11 @@ class AttendanceTracksController < ApplicationController
   # 開始時刻を記録する
   def register_start_at
     @user_project = UserProject.find(params[:user_project_id])
-    # タイムゾーンを日本に統一したいのでTime.currentを使用
-    # to_s(:db)を付けてUTCにして、DBに入る形と同じにしている　秒は保存されない
-    @attendance_track = @user_project.attendance_tracks.new(start_at: Time.now.to_s(:db))
+    @user_projects = current_user.user_projects
+    # タイムゾーンを日本にしたいのでTime.currentを使用
+    # to_s(:db)を付けてUTCにして、DBに入る形と同じにしている　秒は保存しない
+    time = Time.local(Time.current.year, Time.current.month, Time.current.day, Time.current.hour, Time.current.min)
+    @attendance_track = @user_project.attendance_tracks.new(start_at: time.to_s(:db))
 
     respond_to do |format|
       if @attendance_track.save
@@ -85,7 +87,7 @@ class AttendanceTracksController < ApplicationController
         format.html { redirect_to top_user_project_attendance_tracks_url }
       else
         flash[:danger] = t('.failure')
-        format.html { render :top, status: :unprocessable_entityS }
+        format.html { render :top, status: :unprocessable_entity }
       end
     end
   end
@@ -93,7 +95,8 @@ class AttendanceTracksController < ApplicationController
   # 終了時刻を記録する
   def register_end_at
     respond_to do |format|
-      if @attendance_track.update(end_at: Time.now.to_s(:db))
+      time = Time.local(Time.current.year, Time.current.month, Time.current.day, Time.current.hour, Time.current.min)
+      if @attendance_track.update(end_at: time.to_s(:db))
         flash[:success] = t('.success')
         format.html { redirect_to top_user_project_attendance_tracks_url}
       else
