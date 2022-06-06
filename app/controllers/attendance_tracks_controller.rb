@@ -47,8 +47,15 @@ class AttendanceTracksController < ApplicationController
   end
 
   def update
+    # 時間のみ変更する
+    new_start_time = Time.parse(params[:attendance_track][:start_at])
+    new_end_time = Time.parse(params[:attendance_track][:end_at])
+
+    new_start_date = @attendance_track.start_at.change(hour: new_start_time.hour, min: new_start_time.min)
+    new_end_date = @attendance_track.end_at.change(hour: new_end_time.hour, min: new_end_time.min)
+
     respond_to do |format|
-      if @attendance_track.update(attendance_track_params)
+      if @attendance_track.update(start_at: new_start_date, end_at: new_end_date)
         flash[:success] = t('.success')
         format.html { redirect_to user_project_attendance_tracks_url(@user_project) }
       else
