@@ -29,6 +29,19 @@ $ rails s
 $ http://localhost:3000/
 ```
 
+## ログイン可能なアカウント
+個人アカウント：
+- メールアドレス：test@test.com
+- パスワード：password
+
+従業員アカウント：
+- メールアドレス：testEmployee2@test.com
+- パスワード：password
+
+管理者アカウント：
+- メールアドレス：admin@test.com
+- パスワード：password
+
 ## 要件定義
 
 ### [カタログ設計](https://docs.google.com/spreadsheets/d/1X9biLodq88xI_kWUQlw4QINlmHMK2u5UvoU7gSW4pW8/edit?usp=sharing)
