@@ -7,11 +7,11 @@
 ## 実行手順
 1. 任意のディレクトリにgit cloneする
 ```
-$ git clone git@github.com:erikoenuma/freelance_dakoku.git
+$ git clone git@github.com:erikoenuma/dakoku_project.git
 ```
 2. ディレクトリに移動
 ```
-$ cd 
+$ cd dakoku_project
 ```
 3. 以下のコマンドを実行
 ```
