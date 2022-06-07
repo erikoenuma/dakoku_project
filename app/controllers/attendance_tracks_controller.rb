@@ -8,6 +8,7 @@ class AttendanceTracksController < ApplicationController
   def index
     @attendance_tracks = @user_project.attendance_tracks.all
     @user_projects = current_user.user_projects.all
+    @daily_reports = @user_project.daily_reports.all
     if params[:q].nil?
       # 初期値は現在月
       @results = @attendance_tracks.where('start_at > ?', Time.current.beginning_of_month)
@@ -94,6 +95,11 @@ class AttendanceTracksController < ApplicationController
     # to_s(:db)を付けてUTCにして、DBに入る形と同じにしている　秒は保存しない
     time = Time.local(Time.current.year, Time.current.month, Time.current.day, Time.current.hour, Time.current.min)
     @attendance_track = @user_project.attendance_tracks.new(start_at: time.to_s(:db))
+
+    # まだその日の日報が無く、企業から要求されている場合は日報を作成する
+    if @user_project.contract.daily_reports_required && @user_project.daily_reports.where(date: Date.today).empty?
+      @user_project.daily_reports.new(date: Date.today).save!
+    end
 
     respond_to do |format|
       if @attendance_track.save

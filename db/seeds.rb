@@ -84,9 +84,9 @@ end
 [
     [1, '300000', '月', 160, Time.now, nil, false, 'フロントエンドエンジニア', true],
     [2, '400000', '月', 80, Time.now, Time.now, true, 'フロントエンドエンジニア', true],
-    [3, nil, nil, 160, Time.now, nil, false, 'バックエンドエンジニア', true],
-    [4, nil, nil, 160, Time.now, Time.now + 24*60*60*100, false, 'マネージャー', true],
-    [5, nil, nil, 160, Time.now, nil, false, '人事', false],
+    [3, nil, nil, 160, Time.now, nil, true, 'バックエンドエンジニア', true],
+    [4, nil, nil, 160, Time.now, Time.now + 24*60*60*100, true, 'マネージャー', true],
+    [5, nil, nil, 160, Time.now, nil, true, '人事', false],
     [6, '8000', '1時間', 100, Time.now+24*60*60*7, Time.now+24*60*60*365, true, '営業', false]
 ].each do |user_project_id, wage, wage_per, hours_per_month, start_at, end_at, daily_reports_required, role, under_contract|
     Contract.create(
@@ -143,4 +143,10 @@ end
     company = Company.find(rand(1...5))
     company.users << user
     user.user_company.authority = Authority.create(authority: rand(0...2))
+end
+
+AttendanceTrack.all.each do |track|
+    if track.user_project.contract.daily_reports_required
+        track.user_project.daily_reports.new(date: track.start_at.to_date).save!
+    end
 end

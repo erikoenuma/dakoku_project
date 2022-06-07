@@ -6,10 +6,18 @@ class Ability
   def initialize(user)
     # ユーザーがログイン済みかどうか
     if user.present?
-      can :manage, AttendanceTrack
+      can :manage, AttendanceTrack do |track|
+        track.user_project.user == user
+      end
+
+      # 自分の日報のみ編集可能
+      can [:edit, :update], DailyReport do |report|
+        report.user_project.user == user
+      end
+
       # 個人ユーザー
       if user.user_company.nil?
-        # 企業プロジェクトはreadのみ
+        # 企業プロジェクトはreadのみ active: trueは外部キー持ってるかどうか
         can :read, Project, active: true
 
         can :manage, Project do |project|
@@ -27,6 +35,9 @@ class Ability
           can :read, User
           can [:assign, :validate_employee], Company
           can :manage, Contract
+          can :read, DailyReport do |report|
+            report.user_project.project.company == user.company
+          end
 
           # 管理者
           if user.user_company.authority.authority == "admin"

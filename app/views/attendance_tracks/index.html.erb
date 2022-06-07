@@ -65,12 +65,28 @@
                                 </td>
                                 <%# 打刻修正・日報 %>
                                 <td>
-                                <%# 該当日時で絞り込みする %>
-                                <%= search_form_for @q, url: search_user_project_attendance_tracks_path(@user_project) do |f| %>
-                                    <%= f.hidden_field :start_at_gteq, :value => result.second.first.start_at_ja.beginning_of_day %>
-                                    <%= f.hidden_field :start_at_lteq, :value => result.second.first.start_at_ja.end_of_day %>
-                                    <%= f.submit '打刻修正', class:"btn btn-primary text-white" %>
-                                <% end %>
+                                    <div class="row">
+                                        <div class="col-md-3">
+
+                                            <%# 該当日時で絞り込みする %>
+                                            <%= search_form_for @q, url: search_user_project_attendance_tracks_path(@user_project) do |f| %>
+                                                <%= f.hidden_field :start_at_gteq, :value => result.second.first.start_at_ja.beginning_of_day %>
+                                                <%= f.hidden_field :start_at_lteq, :value => result.second.first.start_at_ja.end_of_day %>
+                                                <%= f.submit '打刻修正', class:"btn btn-primary text-white" %>
+                                            <% end %>
+
+                                        </div>
+                                        <div class="col-md-4">
+
+                                            <% daily_report = @daily_reports.where(date: result.second.first.start_at_ja.to_date).first %>
+                                
+                                            <% if !daily_report.nil? && daily_report.contents.nil? %>
+                                                <%= link_to '日報未記入', edit_user_project_daily_report_path(@user_project, daily_report.id), class:'btn btn-danger text-white' %>
+                                            <% elsif !daily_report.nil? && !daily_report.contents.nil? %>
+                                                <%= link_to '日報', edit_user_project_daily_report_path(@user_project, daily_report.id), class:'btn btn-primary text-white' %>
+                                            <% end %>
+
+                                        </div>
                                 </td>
                             </tr>
                         <% end %>

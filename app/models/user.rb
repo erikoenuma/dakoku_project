@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :projects, through: :user_projects
   has_many :attendantce_tracks, through: :user_projects
   has_many :contract, through: :user_projects
+  has_many :daily_reports, through: :user_projects
 
   has_one :user_company, dependent: :destroy
   has_one :company, through: :user_company
