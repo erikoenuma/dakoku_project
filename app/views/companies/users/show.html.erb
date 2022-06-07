@@ -96,6 +96,16 @@
                                     <% sum = result.second.map{|p| p.duration_minutes }.sum %>
                                     <%= (sum/60/60).round %>時間<%= (sum/60%60).round %>分
                                 </td>
+                                <td>
+                                    <%# 日報 %>
+                                    <% daily_report = @daily_reports.where(date: result.second.first.start_at_ja.to_date).first %>
+                        
+                                    <% if !daily_report.nil? && daily_report.contents.nil? %>
+                                        <button class="btn btn-danger text-white" disabled="true" >日報未記入 </button>
+                                    <% elsif !daily_report.nil? && !daily_report.contents.nil? %>
+                                        <%= link_to '日報', user_project_daily_report_path(@user_project, daily_report.id), class:'btn btn-primary text-white' %>
+                                    <% end %>               
+                                </td>             
                             </tr>
                         <% end %>
                     </tbody>

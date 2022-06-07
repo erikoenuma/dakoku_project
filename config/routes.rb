@@ -31,11 +31,15 @@ Rails.application.routes.draw do
         put "register_end_at"
       end
     end
+
+    resources :daily_reports
+
   end
 
   resources :companies do
     scope module: :companies do
-      resources :projects do 
+      resources :projects do
+
         member do
           resources :contracts, only: [:update, :edit], param: :contract_id do 
             collection do
@@ -45,7 +49,9 @@ Rails.application.routes.draw do
               post 'create_not_employee_assignment'
             end
           end
+
           resources :users, as: :members, only: [:show, :destroy], param: :member
+
         end
       end
     end

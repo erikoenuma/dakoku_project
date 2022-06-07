@@ -1,0 +1,36 @@
+<section class="vh-100">
+  <div class="container py-5 h-100">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-12 col-lg-9 col-xl-7">
+        <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5"><%= @daily_report.date.strftime("%Y年%m月%d日") %></h3>
+              <%= form_for(@daily_report, url: user_project_daily_report_path(@user_project, @daily_report), local: true) do |form| %>
+                <%= render 'layouts/errors', object: @daily_report %>
+
+                <div class="row">
+                  <div class="col-md-12 mb-4">
+                      <div class="form-outline">
+                        <label><%= form.label :contents %></label>
+                        <%# 空欄にできないようにする %>
+                        <%= form.text_area :contents, class:"form-control", required: true %>
+                      </div>
+                  </div>
+                </div>
+                
+                <div class="row justify-content-center">
+                  <div class="mt-4 pt-2 mx-2">
+                    <%= link_to t('helpers.links.back'), user_project_attendance_tracks_path(@user_project), class:"btn btn-outline-light btn-lg" %>
+                  </div>
+                  <div class="mt-4 pt-2 mx-2">
+                    <%= form.submit "更新", class:"btn btn-primary text-white btn-lg" %>
+                  </div>
+                <div>
+              <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

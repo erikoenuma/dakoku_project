@@ -1,0 +1,21 @@
+<section class="vh-100">
+  <div class="container py-5 h-100">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-12 col-lg-9 col-xl-7">
+        <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5"><%= @daily_report.date.strftime("%Y年%m月%d日") %></h3>
+
+              <div class="col-md-12 mb-4">
+                  <%= @daily_report.contents %>
+              </div>
+                
+              <div class="text-center">
+                <%= link_to t('helpers.links.back'), company_member_path(@company, @project, @user), class:"btn btn-outline-light btn-lg" %>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

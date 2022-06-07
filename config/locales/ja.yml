@@ -4,6 +4,7 @@ ja:
       project: '案件'
       attendance_track: '打刻'
       user: 'アカウント'
+      daily_report: '日報'
     attributes:
       project:
         name: '案件名'
@@ -28,6 +29,9 @@ ja:
         under_contract: 'ステータス'
       authority:
         authority: '権限'
+      daily_report:
+        date: '日付'
+        contents: '内容'
   users:
     show:
       title: 'アカウント詳細'
@@ -109,6 +113,10 @@ ja:
     register_end_at:
       success: '終了時刻を打刻しました'
       failure: '終了時刻の打刻に失敗しました'
+  daily_reports:
+    update:
+      success: '日報を更新しました'
+      failure: '日報の更新に失敗しました'
     
   helpers:
     submit:
