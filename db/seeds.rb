@@ -150,3 +150,9 @@ AttendanceTrack.all.each do |track|
         track.user_project.daily_reports.new(date: track.start_at.to_date).save!
     end
 end
+
+Contract.all.each do |contract|
+    if contract.user_project.project.company != nil
+        contract.user_project.notice = Notice.new
+    end
+end

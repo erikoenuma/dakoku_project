@@ -32,6 +32,8 @@ ja:
       daily_report:
         date: '日付'
         contents: '内容'
+      notice:
+        contents: '内容'
   users:
     show:
       title: 'アカウント詳細'
@@ -117,6 +119,12 @@ ja:
     update:
       success: '日報を更新しました'
       failure: '日報の更新に失敗しました'
+  notices:
+    edit:
+      title: '連絡事項'
+    update:
+      success: '連絡事項を更新しました'
+      failure: '連絡事項の更新に失敗しました'
     
   helpers:
     submit:

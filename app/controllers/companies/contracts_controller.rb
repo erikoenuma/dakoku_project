@@ -36,13 +36,16 @@ class Companies::ContractsController < ApplicationController
 
     respond_to do |format|
       if @contract.save
+        # 連絡事項を作成
+        @user_project.notice = Notice.new
+
         flash[:success] = t('.create.success')
         format.html { redirect_to company_project_url(@company, @project) }
       else
         # アサイン失敗した場合user_projectも削除する
         @user_project.destroy
         format.html { render :new_assign_employee }
-      end  
+      end
     end  
   end
 
@@ -74,6 +77,9 @@ class Companies::ContractsController < ApplicationController
 
     respond_to do |format|
       if @contract.save
+        # 連絡事項を作成
+        @user_project.notice = Notice.new
+
         flash[:success] = t('.create.success')
         format.html { redirect_to company_project_url(@company, @project) }
       else

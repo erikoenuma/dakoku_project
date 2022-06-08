@@ -11,6 +11,7 @@ class Companies::UsersController < ApplicationController
         @user_project = @user.user_projects.where(project_id: params[:id]).first
         @attendance_tracks = @user_project.attendance_tracks
         @daily_reports = @user_project.daily_reports
+        @notice = @user_project.notice
         
         # 実績を月ごとに表示する
         if params[:q].nil?
