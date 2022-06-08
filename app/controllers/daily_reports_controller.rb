@@ -1,5 +1,5 @@
 class DailyReportsController < ApplicationController
-  before_action :set_daily_report, only: [:show, :edit, :update, :destroy]
+  before_action :set_daily_report, only: [:show, :edit, :update]
 
   # GET /daily_reports/1
   def show

@@ -32,7 +32,8 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :daily_reports
+    resources :daily_reports, only: [:update, :edit, :show]
+    resources :notices
 
   end
 

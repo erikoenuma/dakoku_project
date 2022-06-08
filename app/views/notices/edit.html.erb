@@ -1,0 +1,35 @@
+<section class="vh-100">
+  <div class="container py-5 h-100">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-12 col-lg-9 col-xl-7">
+        <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5"><%= t('.title') %></h3>
+              <%= form_for(@notice, url: user_project_notice_path(@user_project, @notice), local: true) do |form| %>
+                <%= render 'layouts/errors', object: @notice %>
+
+                <div class="row">
+                  <div class="col-md-12 mb-4">
+                      <div class="form-outline">
+                        <label><%= form.label :contents %></label>
+                        <%# 空欄にできないようにする %>
+                        <%= form.text_area :contents, class:"form-control", required: true %>
+                      </div>
+                  </div>
+                </div>
+                
+                <div class="row justify-content-center">
+                  <div class="mt-4 pt-2 mx-2">
+                    <%= link_to t('helpers.links.back'), company_member_path(@company, @project, @user), class:"btn btn-outline-light btn-lg" %>
+                  </div>
+                  <div class="mt-4 pt-2 mx-2">
+                    <%= form.submit "更新", class:"btn btn-primary text-white btn-lg" %>
+                  </div>
+                <div>
+              <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
