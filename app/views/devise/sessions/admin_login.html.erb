@@ -6,6 +6,7 @@
           class="img-fluid" alt="Sample image">
       </div>
       <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+
         <%= form_for(@user, url: users_create_admin_session_path) do |f| %>
           <%= render "devise/shared/error_messages", resource: resource %>
 
@@ -14,7 +15,7 @@
           </div>
 
           <div class="form-outline mb-3">
-            <%= f.number_field :company, id:"form3Example3", class:"form-control", autofocus: true, autocomplete: "company", placeholder:"企業ID", required: true %>
+            <input class="form-control" type="number" name="company_id" placeholder="企業ID" />
           </div>
 
           <div class="form-outline mb-3">
