@@ -4,11 +4,13 @@
       <div class="col-12 col-lg-9 col-xl-7">
 
         <div class="text-center my-5">
-            <h3>企業からの連絡事項</h3>
-            <p><%= @user_project.notice.contents %></p>
-            
-            <% if @user_project.notice.contents.nil? %>
-                <p>連絡事項はありません</p>
+            <% if !@user_project.notice.nil? %>
+                <h3>企業からの連絡事項</h3>
+                <p><%= @user_project.notice.contents %></p>
+                
+                <% if @user_project.notice.contents.nil? %>
+                    <p>連絡事項はありません</p>
+                <% end %>
             <% end %>
         </div>
 
