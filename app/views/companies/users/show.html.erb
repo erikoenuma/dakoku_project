@@ -14,7 +14,6 @@
                             <th><%= Contract.human_attribute_name :wage %></th>
                             <th><%= Contract.human_attribute_name :hours_per_month %></th>
                             <th>契約期間</th>
-                            <th><%= Contract.human_attribute_name :under_contract %></th>
                             <th><%= Contract.human_attribute_name :daily_reports_required %></th>
                             <th colspan="3"></th>
                         <% else %>
@@ -34,7 +33,6 @@
                                     <td><%= @contract.wage %>円/<%= @contract.wage_per %></td>
                                     <td><%= @contract.hours_per_month %>時間</td>
                                     <td><%= @contract.start_at %>～<%= @contract.end_at %></td>
-                                    <td><%= @contract.under_contract ? "在籍中" : "退職済" %></td>
                                     <td><%= @contract.daily_reports_required ? "要" : "不要" %></td>
                                 <% else %>
                                     <td><%= @user.user_company.authority.to_ja %></td>

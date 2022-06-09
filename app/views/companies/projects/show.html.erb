@@ -42,7 +42,6 @@
                   <th><%= User.human_attribute_name :name %></th>
                   <th><%= Contract.human_attribute_name :role %></th>
                   <th>期間</th>
-                  <th><%= Contract.human_attribute_name :under_contract %></th>
                   <th><%= Contract.human_attribute_name :daily_reports_required %></th>
                   <th colspan="3"></th>
                 </tr>
@@ -53,7 +52,6 @@
                     <td><%= employee.name %></td>
                     <td><%= employee.role %></td>
                     <td><%= employee.start_at %>～<%= employee.end_at %></td>
-                    <td><%= employee.under_contract ? "在籍中" : "退職済" %></td>
                     <td><%= employee.daily_reports_required ? "要" : "不要" %></td>
                   </tr>
                 <% end %>
@@ -74,7 +72,6 @@
                   <th><%= Contract.human_attribute_name :wage %></th>
                   <th><%= Contract.human_attribute_name :hours_per_month %></th>
                   <th>期間</th>
-                  <th><%= Contract.human_attribute_name :under_contract %></th>
                   <th><%= Contract.human_attribute_name :daily_reports_required %></th>
                   <th colspan="3"></th>
                 </tr>
@@ -88,7 +85,6 @@
                     <td><%= user.wage %>円/<%= user.wage_per %></td>
                     <td><%= user.hours_per_month %>時間</td>
                     <td><%= user.start_at %>～<%= user.end_at %></td>
-                    <td><%= user.under_contract ? "在籍中" : "退職済" %></td>
                     <td><%= user.daily_reports_required ? "要" : "不要" %></td>
                   </tr>
                 <% end %>
