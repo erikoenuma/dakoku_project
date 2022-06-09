@@ -1,6 +1,7 @@
-<h1>Welcome</h1>
+<h1><%= @company.name %>から「打刻で案件管理」に招待されました。</h1>
 
 <p>
-  <%= @user.name %>さん、あなたのパスワードは<br />
-  <%= @password %>です。
+  <%= @user.name %>さん、あなたのログイン情報はこちらです。<br />
+  企業ID: <%= @company.id %>
+  パスワード: <%= @password %>
 </p>

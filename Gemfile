@@ -68,3 +68,6 @@ gem 'ransack'
 
 # アクセス制限
 gem 'cancancan'
+
+# Debug
+gem 'pry-rails'

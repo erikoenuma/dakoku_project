@@ -26,7 +26,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     # 権限作成
     @company.user_companies.where(user_id: @user.id).first.authority = Authority.new
     # パスワードをメールで送信する
-    RegistrationMailer.welcome(@user, generated_password).deliver
+    RegistrationMailer.welcome(@user, generated_password, @company).deliver
     
     respond_to do |format|
       if @user.save
