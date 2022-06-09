@@ -75,7 +75,7 @@ ja:
       update:
         success: '案件を更新しました'
         failure: '案件更新に失敗しました'
-      destroyed: 
+      destroy: 
         success: '案件を削除しました'
     contracts:
       new_assign_employee:
