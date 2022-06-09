@@ -54,7 +54,7 @@ class AttendanceTracksController < ApplicationController
     new_end_time = Time.parse(params[:attendance_track][:end_at])
 
     new_start_date = @attendance_track.start_at.change(hour: new_start_time.hour, min: new_start_time.min)
-    new_end_date = @attendance_track.end_at.change(hour: new_end_time.hour, min: new_end_time.min)
+    new_end_date = @attendance_track.start_at.change(hour: new_end_time.hour, min: new_end_time.min)
 
     respond_to do |format|
       if @attendance_track.update(start_at: new_start_date, end_at: new_end_date)
