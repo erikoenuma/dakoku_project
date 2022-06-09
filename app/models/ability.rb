@@ -32,7 +32,7 @@ class Ability
         # グループ管理者
         if user.user_company.authority.authority != "employee"
           can :manage, Project, company: user.company
-          can :read, User
+          can [:read, :destroy], User
           can [:assign, :validate_employee], Company
           can :manage, Contract
           can :read, DailyReport do |report|

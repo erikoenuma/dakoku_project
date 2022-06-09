@@ -12,7 +12,7 @@ class Users::SessionsController < Devise::SessionsController
       self.resource = warden.authenticate!(admin_auth_options)
       sign_in(resource_name, resource)
       set_flash_message!(:success, :signed_in)
-      respond_with @user, location: companies_users_url(params[:company_id])
+      respond_with @user, location: after_sign_in_path_for(@user)
   end
 
   # 従業者ログイン
