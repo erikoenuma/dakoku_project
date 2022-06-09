@@ -15,11 +15,7 @@ class User < ApplicationRecord
 
   validates :name, presence: true, length: { maximum: 30}
   validates :email, presence: true, length: { maximum: 255}, format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
-  validates :password, presence: true, length: { minimum: 6, maximum: 255}
-
-  def login
-    @login || self.email || self.company.id
-  end
+  validates :password, length: { minimum: 6, maximum: 255 }
 
   def company_user
     return self.user_company != nil
