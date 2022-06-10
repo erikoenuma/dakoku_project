@@ -21,6 +21,10 @@
                   <td><%= project.name %></td>
                   <td><%= project.billing_destination_email %></td>
                   <td><%= project.billing_destination_manager %></td>
+
+                  <% user_project = UserProject.where(user_id: current_user.id, project_id: project.id).first %>
+                  <td><%= link_to "契約内容", user_project_contract_path(user_project, user_project.contract) %></td>
+                  
                   <% if project.company.nil? %>
                     <td><%= link_to t('helpers.links.edit'), edit_user_custom_project_path(current_user, project) %></td>
                     <td><%= link_to t('helpers.links.destroy'), user_custom_project_path(current_user, project), method: :delete, data: { confirm: t('common.confirm_destroy') } %></td>

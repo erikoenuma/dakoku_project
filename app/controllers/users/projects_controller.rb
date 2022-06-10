@@ -1,13 +1,11 @@
 class Users::ProjectsController < ApplicationController
   before_action :set_project, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
-  load_and_authorize_resource :class => Project
-
 
   # GET /projects or /projects.json
   # サインイン後ここにアクセス（projectsが一つでもあれば打刻画面に飛ばす）
   def index
-    @projects = current_user.projects.all
+    @projects = current_user.projects.all    
   end
 
   # GET /projects/1 or /projects/1.json
@@ -26,6 +24,11 @@ class Users::ProjectsController < ApplicationController
   # POST /projects or /projects.json
   def create
     @project = current_user.projects.create(project_params)
+
+    # contractも作成
+    @user_project = current_user.user_projects.where(project_id: @project.id).first
+    @contract = @user_project.build_contract(start_at: Time.current, role: "不明")
+    @contract.save!
 
     respond_to do |format|
       if @project.save

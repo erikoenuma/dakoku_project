@@ -1,10 +1,18 @@
 <div class="container px-4 px-lg-5">
     <div class="row gx-4 gx-lg-5 justify-content-center">
         <div class="col-md-10 col-lg-8 col-xl-11 mx-auto">
-            <div class="row mt-4 align-items-center">
-              <div class="col-3"><h1><%= t('.title') %></h1></div>
-              <div class="col-3"><%= link_to t('helpers.links.new'), companies_new_employee_path, class:"btn btn-primary text-white btn-sm my-5"%></div>
-            </div>
+          <div class="mt-4">
+            <h1><%= @company.name %>（企業ID: <%= @company.id %>）</h1>
+            <p>郵便番号: <%= @company.zipcode %></p>
+            <p>住所: <%= @company.address %></p>
+            <p>電話番号: <%= @company.phone_number %></p>
+            <p>メールアドレス: <%= @company.email %></p>
+            <p>URL: <%= @company.url %></p>
+          </div>
+          <div class="row mt-4 align-items-center">
+            <div class="col-3"><h1><%= t('.title') %></h1></div>
+            <div class="col-3"><%= link_to t('helpers.links.new'), companies_new_employee_path, class:"btn btn-primary text-white btn-sm my-5"%></div>
+          </div>
           <table class="table">
             <thead class="thead-light">
               <tr>

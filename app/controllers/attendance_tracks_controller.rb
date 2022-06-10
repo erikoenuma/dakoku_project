@@ -18,7 +18,6 @@ class AttendanceTracksController < ApplicationController
       # 何月を表示しているか
       @date = Time.parse(params[:q][:start_at_gteq])
     end
-    
   end
 
   def search

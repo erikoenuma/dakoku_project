@@ -34,7 +34,8 @@ Rails.application.routes.draw do
     end
 
     resources :daily_reports, only: [:update, :edit, :show]
-    resources :notices
+    resources :notices, only: [:edit, :update]
+    resources :contracts, only: [:update, :edit, :show]
 
   end
 

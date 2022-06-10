@@ -1,0 +1,90 @@
+<section class="vh-100">
+  <div class="container py-5 h-100">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-12 col-lg-9 col-xl-7">
+        <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5"><%= t('.title') %> (<%= @user_project.project.name %>)</h3>
+
+              <%= form_with(model: @contract, url: user_project_contract_path(@user_project, @contract), local: true) do |form| %>
+                <%= render 'layouts/errors', object: @contract %>
+
+                <div class="row align-items-center">
+                  <div class="col-md-6 mb-4">
+                      <div class="form-outline">
+                        <label><%= form.label :wage %></label>
+                        <div class="d-flex flex-row align-items-center">
+                          <%= form.number_field :wage, class:"form-control" %>
+                          <span>円/</span>
+                          <select class="custom-select custom-select", name="wage_per">
+                            <option value="月">月</option>
+                            <option value="時間">時間</option>
+                          </select>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="col-md-4 mb-4">
+                      <div class="form-outline">
+                        <label><%= form.label :hours_per_month %></label>
+                        <div class="d-flex flex-row align-items-center">
+                          <%= form.number_field :hours_per_month, class:"form-control" %>
+                          <span>時</span>
+                          <span>間</span>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 mb-4">
+                      <div class="form-outline">
+                        <label><%= form.label :start_at %></label>
+                        <%= form.date_field :start_at, class:"form-control", required: true %>
+                      </div>
+                  </div>
+                  <div class="col-md-6 mb-4">
+                      <div class="form-outline">
+                        <label><%= form.label :end_at %></label>
+                        <%= form.date_field :end_at, class:"form-control", include_blank: "" %>
+                      </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 mb-4">
+                      <div class="form-outline">
+                        <label><%= form.label :role %></label>
+                        <%= form.text_field :role, class:"form-control", required: true, maxlength:"255" %>
+                      </div>
+                  </div>
+                  <div class="col-md-6 mb-4">
+                    <div class="form-outline">
+                      <%= form.label :daily_reports_required, class:"mb-2 pb-1" %>  
+                      <div class="custom-control custom-radio custom-control-inline">  
+                        <input class="custom-control-input" type="radio" name="daily_reports_required" id="required"
+                          value="true"/>
+                        <label class="custom-control-label" for="required">要</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                          <input class="custom-control-input" type="radio" name="daily_reports_required" id="not_required"
+                          value="false" checked/>
+                          <label class="custom-control-label" for="not_required">不要</label>
+                      </div>       
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="row justify-content-center">
+                  <div class="mt-4 pt-2 mx-2">
+                    <%= link_to t('helpers.links.back'), user_project_contract_path(@user_project, @contract), class:"btn btn-outline-secondary text-black btn-lg" %>
+                  </div>
+                  <div class="mt-4 pt-2 mx-2">
+                    <%= form.submit "更新する", class:"btn btn-primary text-white btn-lg" %>
+                  </div>
+                <div>
+              <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
